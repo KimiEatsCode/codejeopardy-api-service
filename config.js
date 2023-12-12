@@ -1,8 +1,8 @@
 const dotenv = require("dotenv");
 //in dev use below
-// dotenv.config({ path: "./config.env" });
+dotenv.config({ path: "./config.env" });
 //in prod use below
-dotenv.config();
+// dotenv.config();
 
 const Pool = require("pg").Pool;
 
@@ -28,7 +28,6 @@ const Pool = require("pg").Pool;
 // };
 // module.exports = config;
 
-
 const pool = new Pool({
   // user: process.env.USERNAME,
   // host: process.env.HOST,
@@ -37,8 +36,8 @@ const pool = new Pool({
   // port: process.env.PORT,
   connectionString: process.env.DBConfigLink,
   ssl: {
-    rejectUnauthorized:false
-  }
+    rejectUnauthorized: false,
+  },
 });
 
 module.exports = pool;

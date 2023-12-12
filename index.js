@@ -6,7 +6,7 @@ dotenv.config();
 const morgan = require("morgan");
 let app = express();
 const gameMethodsRouter = require("./routes/gameRoutes");
-const dbqueries = require("./queries");
+const pool = require("./config");
 
 const port = process.env.PORT;
 console.log(process.env);
@@ -25,8 +25,15 @@ app.get("/", (req, res) => {
   res.end();
 });
 
-app.get("/rendertest", dbqueries.pool);
-
+app.get("/api/render", async (req, res) => {
+  try {
+    const allItems = await pool.query("SELECT * FROM categories");
+    res.json({ allItems });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error.message);
+  }
+});
 app.use(gameMethodsRouter.router0);
 app.use(gameMethodsRouter.router1);
 app.use(gameMethodsRouter.router2);
