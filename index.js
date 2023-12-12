@@ -30,8 +30,8 @@ app.get("/api/render", async (req, res) => {
     const allItems = await pool.query("SELECT name FROM categories");
 
     // res.json({ allItems });
-    const categories = map((allItems) => {
-      return allItems.rows.name;
+    const categories = allItems.map((data) => {
+      return data.rows.name;
     });
     console.log(categories);
   } catch (error) {
