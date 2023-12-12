@@ -1,7 +1,7 @@
 const pool = require("./config");
 
 const getCategoriesFromRender = (request, response) => {
-  pool.query("SELECT * ", (error, results) => {
+  pool.query(`SELECT * FROM categories`, (error, results) => {
     if (error) {
       throw error;
     }
