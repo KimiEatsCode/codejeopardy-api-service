@@ -1,11 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
-dotenv.config({ path: "./config.env" });
+dotenv.config();
+// dotenv.config({ path: "./config.env" });
 const morgan = require("morgan");
 let app = express();
 const gameMethodsRouter = require("./routes/gameRoutes");
-const dbqueries = require('./queries');
+const dbqueries = require("./queries");
 
 const port = process.env.PORT;
 console.log(process.env);
@@ -24,7 +25,7 @@ app.get("/", (req, res) => {
   res.end();
 });
 
-app.get('/rendertest', dbqueries.getCategoriesFromRender)
+app.get("/rendertest", dbqueries.getCategoriesFromRender);
 
 app.use(gameMethodsRouter.router0);
 app.use(gameMethodsRouter.router1);
