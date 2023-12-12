@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
   res.end();
 });
 
-app.get("/rendertest", dbqueries.getCategoriesFromRender);
+app.get("/rendertest", dbqueries.pool);
 
 app.use(gameMethodsRouter.router0);
 app.use(gameMethodsRouter.router1);
