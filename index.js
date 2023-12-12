@@ -28,7 +28,12 @@ app.get("/", (req, res) => {
 app.get("/api/render", async (req, res) => {
   try {
     const allItems = await pool.query("SELECT name FROM categories");
-    res.json({ allItems });
+
+    // res.json({ allItems });
+    const categories = map((allItems) => {
+      return allItems.rows.name;
+    });
+    console.log(categories);
   } catch (error) {
     console.log(error);
     res.status(500).send(error.message);
