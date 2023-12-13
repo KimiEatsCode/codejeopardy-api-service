@@ -1,4 +1,4 @@
-const pool = require("./config");
+const pool = require("../config");
 const helper = require("../helper");
 
 async function checkSQLConnections() {
