@@ -41,9 +41,9 @@ router0.get("/api/checkSQLConnections", async function (req, res, next) {
 /* GET game categories. */
 router1.get("/api/game-categories", async function (req, res, next) {
   try {
-    const data = await gameMethods.getGameCategories()
-    res.json(data.rows.rows[0]);
-    console.log("mysql db queries are being used");
+    const data = await gameMethods.getGameCategories();
+    res.json(data.data.rows);
+    console.log("get categories " + data.data.rows);
   } catch (err) {
     console.error(`Error while getting game categories `, err.message);
     next(err);
