@@ -26,7 +26,6 @@ async function getCategoryClues(catid) {
   const rows = await pool.query(
     `SELECT * FROM clues WHERE category_id = ${catid}`
   );
-
   return {
     rows,
   };

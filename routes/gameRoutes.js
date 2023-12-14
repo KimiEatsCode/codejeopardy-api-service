@@ -43,7 +43,7 @@ router1.get("/api/game-categories", async function (req, res, next) {
   try {
     const data = await gameMethods.getGameCategories();
     res.json(data.data.rows);
-    console.log("get categories " + data.data.rows);
+    console.log("get categories " + data.data.rows[0]);
   } catch (err) {
     console.error(`Error while getting game categories `, err.message);
     next(err);
@@ -56,7 +56,7 @@ router2.get("/api/category-clues/:catid", async function (req, res, next) {
     let catid = req.params.catid;
     console.log(catid);
     const data = await gameMethods.getCategoryClues(catid);
-    res.json(data.rows.rows[0]);
+    res.json(data.rows.rows);
   } catch (err) {
     console.error(`Error while getting a category clues `, err.message);
     next(err);

@@ -25,18 +25,6 @@ app.get("/", (req, res) => {
   res.end();
 });
 
-app.get("/api/render", async (req, res) => {
-  try {
-    const allItems = await pool.query("SELECT name FROM categories");
-
-    // res.json({ allItems });
-    res.json(allItems.rows);
-    console.log(categories);
-  } catch (error) {
-    console.log(error);
-    res.status(500).send(error.message);
-  }
-});
 app.use(gameMethodsRouter.router0);
 app.use(gameMethodsRouter.router1);
 app.use(gameMethodsRouter.router2);
