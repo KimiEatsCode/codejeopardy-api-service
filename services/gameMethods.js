@@ -15,7 +15,7 @@ async function getGameCategories() {
   console.log("categories received");
   const rows = await pool.query(`SELECT * FROM categories`);
   const data = helper.emptyOrRows(rows);
-  console.log(data);
+  // console.log(data);
   return {
     data,
   };
@@ -35,7 +35,7 @@ async function getCategoryClues(catid) {
 async function getAllClues() {
   console.log("games received");
   const rows = await pool.query(`SELECT * FROM clues`);
-  console.log("getAllClues  " + rows);
+  // console.log("getAllClues  " + rows);
   return {
     rows,
   };
@@ -44,7 +44,7 @@ async function getAllClues() {
 async function getGames() {
   console.log("games received");
   const rows = await pool.query(`SELECT * FROM game`);
-  console.log(rows);
+  // console.log(rows);
   return {
     rows,
   };
