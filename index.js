@@ -33,6 +33,7 @@ app.use(gameMethodsRouter.router4);
 app.use(gameMethodsRouter.router5);
 app.use(gameMethodsRouter.router6);
 app.use(gameMethodsRouter.router7);
+app.use(gameMethodsRouter.router8);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

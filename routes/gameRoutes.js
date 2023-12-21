@@ -50,7 +50,7 @@ router1.get("/api/game-categories", async function (req, res, next) {
   }
 });
 
-/* GET all category clues. */
+/* GET all category clues in a specific category */
 router2.get("/api/category-clues/:catid", async function (req, res, next) {
   try {
     let catid = req.params.catid;
@@ -64,17 +64,18 @@ router2.get("/api/category-clues/:catid", async function (req, res, next) {
   res.end();
 });
 
-/* GET games */
-router3.get("/api/games", async function (req, res, next) {
+//GET all clues
+router3.get("/api/allclues", async function (req, res, next) {
   try {
-    const data = await gameMethods.getGames();
+    const data = await gameMethods.getAllClues();
     res.json(data.rows.rows[0]);
   } catch (err) {
-    console.error(`Error while getting category clues `, err.message);
+    console.error(`Error while getting all clues `, err.message);
     next(err);
   }
   res.end();
 });
+
 
 /* GET specific category clue based on clue id */
 router4.get("/api/category-clue/:clue_id", async function (req, res, next) {
@@ -134,14 +135,13 @@ router7.patch("/api/game/:gameid&:score", async function (req, res, next) {
   res.end();
 });
 
-//GET all clues from table clues
-/* GET games */
-router3.get("/api/allclues", async function (req, res, next) {
+/* GET all games */
+router8.get("/api/games", async function (req, res, next) {
   try {
-    const data = await gameMethods.getAllClues();
+    const data = await gameMethods.getGames();
     res.json(data.rows.rows[0]);
   } catch (err) {
-    console.error(`Error while getting all clues clues `, err.message);
+    console.error(`Error while getting category clues `, err.message);
     next(err);
   }
   res.end();
