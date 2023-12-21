@@ -33,9 +33,9 @@ async function getCategoryClues(catid) {
 ``;
 
 async function getAllClues() {
-  console.log("games received");
+  console.log("clues received");
   const rows = await pool.query(`SELECT * FROM clues`);
-  // console.log("getAllClues  " + rows);
+  console.log("getAllClues  " + rows);
   return {
     rows,
   };
