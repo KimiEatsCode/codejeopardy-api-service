@@ -34,7 +34,7 @@ async function getCategoryClues(catid) {
 
 async function getAllClues() {
   console.log("clues received");
-  const rows = await pool.query(`SELECT * FROM clues`);
+  const rows = await pool.query(`SELECT * FROM clues ORDERBY value`);
   console.log("getAllClues  " + rows);
   return {
     rows,

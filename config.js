@@ -6,16 +6,10 @@ dotenv.config({ path: "./config.env" });
 
 const Pool = require("pg").Pool;
 
-// const config = {
-//   db: {
-//     /* don't expose password or any sensitive info, done only for demo */
-//     host: "us-cdbr-east-06.cleardb.net",
-//     user: "be38a284467428",
-//     password: "e9858bff",
-//     database: "heroku_1885579adcb0c5a",
-//   },
-// };
-// module.exports = config;
+const env_vars = {
+  apiUrl: "https://codejeopardy-api.onrender.com"
+};
+module.exports = env_vars;
 
 // const config = {
 //   db: {
