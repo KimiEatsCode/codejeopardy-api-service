@@ -17,7 +17,7 @@ const app = express();
 app.use(function (req, res, next) {
   res.header(
     "Access-Control-Allow-Origin",
-    "https://thunderous-haupia-d8250a.netlify.app/"
+    "https://codejeopardyvue.onrender.com/"
   ); // Replace "*" with your allowed domains
   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
   res.header(
@@ -75,7 +75,6 @@ router3.get("/api/allclues", async function (req, res, next) {
   }
   res.end();
 });
-
 
 /* GET specific category clue based on clue id */
 router4.get("/api/category-clue/:clue_id", async function (req, res, next) {
