@@ -1,16 +1,11 @@
 const dotenv = require("dotenv");
 //in dev use below
-dotenv.config({ path: "./config.env" });
+// dotenv.config({ path: "./config.env" });
 //in prod use below
-// dotenv.config();
+dotenv.config();
 
 const Pool = require("pg").Pool;
 
-const env_vars = {
-  apiUrl: "https://codejeopardy-api.onrender.com",
-
-  //     /* don't expose password or any sensitive info, done only for demo */
-};
 
 module.exports = env_vars;
 
