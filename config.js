@@ -7,27 +7,19 @@ dotenv.config({ path: "./config.env" });
 const Pool = require("pg").Pool;
 
 const env_vars = {
-  apiUrl: "https://codejeopardy-api.onrender.com"
+  apiUrl: "https://codejeopardy-api.onrender.com",
+
+  //     /* don't expose password or any sensitive info, done only for demo */
 };
+
 module.exports = env_vars;
 
-// const config = {
-//   db: {
-//     /* don't expose password or any sensitive info, done only for demo */
-//     host: "127.0.0.1",
-//     user: "root",
-//     password: "root",
-//     database: "jeopardygame",
-//   },
-// };
-// module.exports = config;
-
 const pool = new Pool({
-  // user: process.env.USERNAME,
-  // host: process.env.HOST,
-  // database: process.env.DATABASE,
-  // password: process.env.PASSWORD,
-  // port: process.env.PORT,
+  user: process.env.USERNAME,
+  host: process.env.HOST,
+  database: process.env.DATABASE,
+  password: process.env.PASSWORD,
+  port: process.env.PORT,
   connectionString: process.env.DBConfigLink,
   ssl: {
     rejectUnauthorized: false,
