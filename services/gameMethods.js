@@ -1,9 +1,10 @@
-const pool = require("../config");
+const config = require("../config");
 const helper = require("../helper");
+const db = require("./db");
 
 async function checkSQLConnections() {
   console.log("Threads connected");
-  const data = await pool.query(
+  const data = await db.query(
     "SHOW STATUS WHERE `variable_name` = 'Threads_connected';"
   );
   return {
@@ -13,9 +14,10 @@ async function checkSQLConnections() {
 
 async function getGameCategories() {
   console.log("categories received");
-  const rows = await pool.query(`SELECT * FROM categories`);
+  const rows = await db.query(`SELECT * FROM categories`);
+  //helper only returns data if rows are not empty
   const data = helper.emptyOrRows(rows);
-  // console.log(data);
+  console.log(data);
   return {
     data,
   };
@@ -23,7 +25,7 @@ async function getGameCategories() {
 
 async function getCategoryClues(catid) {
   console.log("clues received");
-  const rows = await pool.query(
+  const rows = await db.query(
     `SELECT * FROM clues WHERE category_id = ${catid} ORDER BY value ASC`
   );
   return {
@@ -34,7 +36,7 @@ async function getCategoryClues(catid) {
 
 async function getAllClues() {
   console.log("clues received");
-  const rows = await pool.query(`SELECT * FROM clues`);
+  const rows = await db.query(`SELECT * FROM clues`);
   console.log("getAllClues  " + rows);
   return {
     rows,
@@ -43,7 +45,7 @@ async function getAllClues() {
 
 async function getGames() {
   console.log("games received");
-  const rows = await pool.query(`SELECT * FROM game`);
+  const rows = await db.query(`SELECT * FROM games`);
   // console.log(rows);
   return {
     rows,
@@ -52,7 +54,7 @@ async function getGames() {
 
 async function getClue(id) {
   console.log("clue received");
-  const rows = await pool.query(`SELECT * FROM clues WHERE clue_id = ${id}`);
+  const rows = await db.query(`SELECT * FROM clues WHERE clue_id = ${id}`);
   console.log("single clue getClue" + JSON.stringify(rows));
   return {
     rows,
@@ -61,7 +63,7 @@ async function getClue(id) {
 
 async function updateClue(id, answeredClue) {
   console.log("clue answered api file " + answeredClue);
-  const rows = await pool.query(
+  const rows = await db.query(
     `UPDATE clues SET answered = ${answeredClue} WHERE clue_id= ${id}`
   );
   console.log("single clue updateClue" + JSON.stringify(answeredClue));
@@ -71,8 +73,8 @@ async function updateClue(id, answeredClue) {
 }
 
 async function resetClues() {
-  console.log("reset game");
-  const rows = await pool.query(`UPDATE clues SET answered = null
+  console.log("reset games");
+  const rows = await db.query(`UPDATE clues SET answered = null
   `);
   return {
     rows,
@@ -80,9 +82,9 @@ async function resetClues() {
 }
 
 async function setScore(gameid, score) {
-  console.log("game methods set score" + score);
-  const rows = await pool.query(
-    `UPDATE game SET game_score = ${score} WHERE id=${gameid}`
+  console.log("games methods set score" + score);
+  const rows = await db.query(
+    `UPDATE games SET game_score = ${score} WHERE id=${gameid}`
   );
   return {
     rows,
