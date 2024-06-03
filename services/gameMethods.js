@@ -4,10 +4,7 @@ const helper = require("../helper");
 
 const mysql = require("mysql2");
 const connection = mysql.createConnection({
-  user: "root",
-  password: "w@f3rB0rdroot",
-  host: "localhost",
-  database: "codejeo",
+ 
 });
 
 connection.connect();
