@@ -1,5 +1,14 @@
 const express = require("express");
+const app = express();
+
 const gameMethods = require("../services/gameMethods");
+
+//in dev use
+const dotenv = require("dotenv");
+dotenv.config({ path: "./config.env" });
+//in prod use
+// dotenv.config();
+
 /*have to have express.Router() for each http call*/
 const router0 = express.Router();
 const router1 = express.Router();
@@ -11,31 +20,30 @@ const router6 = express.Router();
 const router7 = express.Router();
 const router8 = express.Router();
 
-const app = express();
-
 // Enable CORS for all routes
-app.use(function (req, res, next) {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://codejeopardy-api-service-qc6d.onrender.com"
-  ); // Replace "*" with your allowed domains
-  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+// app.use(function (req, res, next) {
+//   res.header(
+//     `Access-Control-Allow-Origin,
+//     ${process.env.HOST}`
+//   ); // Replace "*" with your allowed domains
+//   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
 
-/* GET mySQL Connections */
-router0.get("/api/checkSQLConnections", async function (req, res, next) {
-  try {
-    res.json(await gameMethods.checkSQLConnections());
-  } catch (err) {
-    console.error(`Error while getting checkSQL Connections `, err.message);
-    next(err);
-  }
-  res.end();
+router0.get("/", async function (req, res, next) {
+  res.json("test");
+  // try {
+  //   const data = await gameMethods.getGameCategories();
+  //   res.json(data.data.rows);
+  //   // console.log("get categories " + data.data.rows[0]);
+  // } catch (err) {
+  //   console.error(`Error while getting game categories `, err.message);
+  //   next(err);
+  // }
 });
 
 /* GET game categories. */
