@@ -11,7 +11,7 @@ dotenv.config({ path: "./config.env" });
 
 //https://blog.logrocket.com/build-rest-api-node-express-mysql/#setting-up-express-js-rest-api
 
-const connection = mysql2.createConnection({
+const pool = mysql2.createPool({
   user: process.env.USERNAME,
   host: process.env.HOST,
   database: process.env.DATABASE,
@@ -19,10 +19,10 @@ const connection = mysql2.createConnection({
   port: process.env.PORT,
 });
 
-// pool.getConnection((err, connection) => {
-//   if (err) throw err;
-//   console.log("Database connected successfully");
-//   connection.release();
-// });
+pool.getConnection((err, connection) => {
+  if (err) throw err;
+  console.log("Database connected successfully");
+  connection.release();
+});
 
-module.exports = connection;
+module.exports = pool;

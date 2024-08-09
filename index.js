@@ -7,12 +7,23 @@ const app = express();
 
 app.use(cors());
 
+var corsOptions = {
+  origin: "http://localhost:8081",
+};
+
+app.use(cors(corsOptions));
+
 app.use(
   express.urlencoded({
     extended: true,
   })
 );
 app.use(express.json());
+
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "test: Get a response for codejeo app." });
+});
 
 app.use(gameMethodsRouter.router0);
 app.use(gameMethodsRouter.router1);
@@ -39,9 +50,9 @@ app.use(gameMethodsRouter.router8);
 //   res.status(err.status || 500);
 //   res.render("error");
 // });
-
-app.listen(() => {
+const PORT = process.env.PORT;
+app.listen(PORT, () => {
   console.log(
-    `index js message: Server is running at http://localhost:${process.env.PORT}`
+    `index js message: Server is running at http://localhost:${PORT}`
   );
 });
