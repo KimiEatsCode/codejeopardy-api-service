@@ -7,6 +7,7 @@ const mysql2 = require("mysql2");
 //in dev use
 dotenv.config({ path: "./config.env" });
 //in prod use
+//in prod use
 // dotenv.config();
 
 
