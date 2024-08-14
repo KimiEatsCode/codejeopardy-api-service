@@ -1,47 +1,36 @@
 const express = require("express");
 const cors = require("cors");
+const bodyParser = require("body-parser");
+// const router = require("./routes/gameRoutes");
+// const pool = require("./config.js");
+const router = express.Router();
+const app = express();
 const dotenv = require("dotenv");
-dotenv.config();
-// dotenv.config({ path: "./config.env" });
-const morgan = require("morgan");
-let app = express();
-const gameMethodsRouter = require("./routes/gameRoutes");
-const pool = require("./config");
-
-const port = process.env.PORT;
-console.log(process.env);
-
-app.use(express.json());
+dotenv.config({ path: "./config.env" });
 app.use(cors());
+app.use(bodyParser.json());
+app.use(express.static('public'));
 
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
-
-app.get("/", (req, res) => {
-  res.json({ message: "okie dokie kimi" });
-  res.end();
+// catch 404 and forward to error handler
+app.use(function (req, res, next) {
+  next(createError(404));
 });
 
-app.use(gameMethodsRouter.router0);
-app.use(gameMethodsRouter.router1);
-app.use(gameMethodsRouter.router2);
-app.use(gameMethodsRouter.router3);
-app.use(gameMethodsRouter.router4);
-app.use(gameMethodsRouter.router5);
-app.use(gameMethodsRouter.router6);
-app.use(gameMethodsRouter.router7);
-app.use(gameMethodsRouter.router8);
-
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+app.get('/users', (req, res) => {
+  db.query('SELECT * FROM categories', (err, results) => {
+    if (err) {
+      console.error('Error fetching users:', err);
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.json(results);
+    }
+  });
 });
 
-if (process.env.NODE_ENV === "development") {
-  //when go to an api url aka make a api request
-  //morgan shows the request  url
-  console.log("env var for node_env is " + process.env.NODE_ENV);
-  app.use(morgan("dev"));
-}
+
+app.listen(() => {
+
+  console.log(
+    `index js message: Server is running at http://localhost:${process.env.PORT}`
+  );
+});

@@ -1,26 +1,30 @@
 const dotenv = require("dotenv");
-//in dev use below
+// const Pool = require("pg").Pool;
+// const { Client } = require('pg');
+const mysql2 = require("mysql2");
+
+
+//in dev use
 dotenv.config({ path: "./config.env" });
-//in prod use below
+//in prod use
 // dotenv.config();
 
-const Pool = require("pg").Pool;
 
-const env_vars = {
-  apiUrl: "https://codejeopardy-api-service-qc6d.onrender.com",
-};
-module.exports = env_vars;
+const pool = mysql2.createPool({
+  connectionLimit: 5,
+  user: process.env.USERNAME,
+  host: process.env.HOST,
+  database: process.env.DATABASE,
+  password: process.env.PASSWORD,
+  port: process.env.PORT,
+});
 
-const pool = new Pool({
-  // user: process.env.USERNAME,
-  // host: process.env.HOST,
-  // database: process.env.DATABASE,
-  // password: process.env.PASSWORD,
-  // port: process.env.PORT,
-  connectionString: process.env.DBConfigLink,
-  ssl: {
-    rejectUnauthorized: false,
-  },
+
+pool.getConnection((err,connection)=> {
+  if(err)
+  throw err;
+  console.log('Database connected successfully');
+  connection.release();
 });
 
 module.exports = pool;

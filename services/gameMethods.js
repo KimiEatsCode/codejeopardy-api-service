@@ -1,121 +1,117 @@
-const config = require("../config");
+var express = require("express");
 const helper = require("../helper");
-// const db = require("./db");
+const db = require("../config");
+const router = express.Router();
 
-const mysql = require("mysql2");
-const connection = mysql.createConnection({
-  user: "root",
-  password: "w@f3rB0rdroot",
-  host: "localhost",
-  database: "codejeo",
-});
-
-connection.connect();
-
-connection.query(`SELECT * FROM categories`, (err, rows, fields) => {
-  if (err) throw err;
-
-  console.log("The solution is: ", rows[0]);
-});
-
-async function checkSQLConnections() {
-  console.log("Threads connected");
-  const data = await connection.query(
-    "SHOW STATUS WHERE `variable_name` = 'Threads_connected';"
-  );
-  return {
-    data,
-  };
-}
-
-async function getGameCategories() {
-  connection.query(`SELECT * FROM categories`, (err, rows, fields) => {
-    if (err) throw err;
-
-    return rows[0];
+router.get('/users', (req, res) => {
+  alert('what')
+  db.query('SELECT * FROM categories', (err, results) => {
+    if (err) {
+      console.error('Error fetching users:', err);
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.json(results);
+    }
   });
-  // console.log("categories received");
-  // const rows = await connection.query(`SELECT * FROM categories`);
-  // //helper only returns data if rows are not empty
-  // const data = helper.emptyOrRows(rows);
-  // console.log(data);
-  // return {
-  //   data,
-  // };
+});
+ 
+db.query(`SELECT * FROM categories`, (err, rows, fields) => {
+  if (err) throw err;
+ 
+  console.log("from game methods file " + rows)
+  // return data;
+});
+ 
+
+const getGameCategories = async() => {
+  try {
+    const rows = await db.query(`SELECT * FROM categories`,(err, rows, fields));
+    //helper only returns data if rows are not empty
+    const data = helper.emptyOrRows(rows[0].id);
+    console.log(data);
+    return data;
+  } catch (err) {
+    return err.stack;
+  }
 }
 
-async function getCategoryClues(catid) {
-  console.log("clues received");
-  const rows = await connection.query(
-    `SELECT * FROM clues WHERE category_id = ${catid} ORDER BY value ASC`
-  );
-  return {
-    rows,
-  };
-}
-``;
 
-async function getAllClues() {
-  console.log("clues received");
-  const rows = await connection.query(`SELECT * FROM clues`);
-  console.log("getAllClues  " + rows);
-  return {
-    rows,
-  };
+const getCategoryClues = async(catid) =>  {
+ try {
+    const rows = await db.query(
+      `SELECT * FROM clues WHERE category_id = ${catid} ORDER BY ASC`
+    ,);
+    return rows;
+  } catch (err) {
+    return err.stack;
+  }
 }
 
-async function getGames() {
-  console.log("games received");
-  const rows = await connection.query(`SELECT * FROM games`);
-  // console.log(rows);
-  return {
-    rows,
-  };
-}
+const getAllClues = async () => {
+  try {
+    const rows = await db.query(`SELECT * FROM clues`);
+    console.log("getAllClues  " + rows);
+    return rows;
+  } catch (err) {
+    return err.stack;
+  }
+};
 
-async function getClue(id) {
-  console.log("clue received");
-  const rows = await connection.query(
-    `SELECT * FROM clues WHERE clue_id = ${id}`
-  );
-  console.log("single clue getClue" + JSON.stringify(rows));
-  return {
-    rows,
-  };
-}
+const getGames = async () => {
+  try {
+    const rows = await db.query(`SELECT * FROM games`);
+    return rows;
+  } catch (err) {
+    return err.stack;
+  }
+};
 
-async function updateClue(id, answeredClue) {
-  console.log("clue answered api file " + answeredClue);
-  const rows = await connection.query(
-    `UPDATE clues SET answered = ${answeredClue} WHERE clue_id= ${id}`
-  );
-  console.log("single clue updateClue" + JSON.stringify(answeredClue));
-  return {
-    rows,
-  };
-}
+const getClue = async (id) => {
+  try {
+    const rows = await db.query(`SELECT * FROM clues WHERE clue_id = ${id}`);
+    console.log("single clue getClue" + JSON.stringify(rows));
+    return rows;
+  } catch (err) {
+    return err.stack;
+  }
+};
 
-async function resetClues() {
-  console.log("reset games");
-  const rows = await connection.query(`UPDATE clues SET answered = null
-  `);
-  return {
-    rows,
-  };
-}
+const updateClue = async (id, answeredClue) => {
+  try {
+    const rows = await db.query(
+      `UPDATE clues SET answered = ${answeredClue} WHERE clue_id= ${id}`
+    );
+    console.log("single clue updateClue" + JSON.stringify(answeredClue));
+    return rows;   
 
-async function setScore(gameid, score) {
-  console.log("games methods set score" + score);
-  const rows = await connection.query(
-    `UPDATE games SET game_score = ${score} WHERE id=${gameid}`
-  );
-  return {
-    rows,
-  };
-}
+  } catch (err) {
+    return err.stack;
+  }
+};
+
+const resetClues = async () => {
+  try {
+    console.log("reset games");
+    const rows = await db.query(`UPDATE clues SET answered = null`);
+    return rows;
+  } catch (err) {
+    return err.stack;
+  }
+};
+
+const setScore = async (gameid, score) => {
+  try {
+    const rows = await db.query(
+      `UPDATE games SET game_score = ${score} WHERE id=${gameid}`
+    );
+    return rows;
+  } catch (err) {
+    return err.stack;
+  }
+};
 
 module.exports = {
-  checkSQLConnections,
+
   getGameCategories,
   getCategoryClues,
   getGames,
