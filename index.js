@@ -1,58 +1,36 @@
 const express = require("express");
 const cors = require("cors");
-const gameMethodsRouter = require("./routes/gameRoutes");
-const connection = require("./config.js");
-
+const bodyParser = require("body-parser");
+// const router = require("./routes/gameRoutes");
+// const pool = require("./config.js");
+const router = express.Router();
 const app = express();
-
+const dotenv = require("dotenv");
+dotenv.config({ path: "./config.env" });
 app.use(cors());
-
-var corsOptions = {
-  origin: "http://localhost:8081",
-};
-
-app.use(cors(corsOptions));
-
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
-app.use(express.json());
-
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "test: Get a response for codejeo app." });
-});
-
-app.use(gameMethodsRouter.router0);
-app.use(gameMethodsRouter.router1);
-app.use(gameMethodsRouter.router2);
-app.use(gameMethodsRouter.router3);
-app.use(gameMethodsRouter.router4);
-app.use(gameMethodsRouter.router5);
-app.use(gameMethodsRouter.router6);
-app.use(gameMethodsRouter.router7);
-app.use(gameMethodsRouter.router8);
+app.use(bodyParser.json());
+app.use(express.static('public'));
 
 // catch 404 and forward to error handler
-// app.use(function (req, res, next) {
-//   next(createError(404));
-// });
+app.use(function (req, res, next) {
+  next(createError(404));
+});
 
-// error handler
-// app.use(function (err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get("env") === "development" ? err : {};
+app.get('/users', (req, res) => {
+  db.query('SELECT * FROM categories', (err, results) => {
+    if (err) {
+      console.error('Error fetching users:', err);
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.json(results);
+    }
+  });
+});
 
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render("error");
-// });
-const PORT = process.env.PORT;
-app.listen(PORT, () => {
+
+app.listen(() => {
+
   console.log(
-    `index js message: Server is running at http://localhost:${PORT}`
+    `index js message: Server is running at http://localhost:${process.env.PORT}`
   );
 });
