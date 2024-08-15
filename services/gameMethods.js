@@ -8,8 +8,15 @@
 // };
 
 // async function getGameCategories() {
-// important note: doesn't work connection query needs to be in the routes file not in a separate methods file
-//better to organize routes into separate files and have query statements in the routes than to have methods separated from the routes?
+
+// // important note: doesn't work connection query needs to be in the routes file not in a separate methods file
+// // better to organize routes into separate files and have query statements in the routes than to have methods separated from the routes?
+
+//I got the idea to put the sql queries methods in a separate file from routes file from this tutorial https://blog.logrocket.com/build-rest-api-node-express-mysql/#setting-up-express-js-rest-api
+
+
+
+
 // try {
 //   return await connection.query(
 //     `SELECT * FROM categories`,
