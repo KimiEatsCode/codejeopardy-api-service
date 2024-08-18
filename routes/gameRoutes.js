@@ -1,10 +1,11 @@
 const express = require("express");
 const app = express();
-const pool = require("../config");
+const connection = require("..");
 // const gameMethods = require("../services/gameMethods");
 
 //in dev use
 const dotenv = require("dotenv");
+const { Connection } = require("pg");
 dotenv.config({ path: "./config.env" });
 
 //in prod use
@@ -37,6 +38,7 @@ app.use(function (req, res, next) {
 
 router0.get("/", (req, res, next) => {
   res.send("test router 0");
+  connection.connect();
 });
 
 /* NOT WORKING
@@ -56,14 +58,16 @@ router0.get("/", (req, res, next) => {
 /* with query string GET game categories  */
 router1.get("/api/game-categories", async function (req, res, next) {
   try {
-    const [results, fields] = await pool.query(
-      "SELECT * FROM categories"
-    );
-    res.json(results);
+    connection.connect((err, connection) => {
+      if (err) throw err;
+      const [results, fields] = connection.query("SELECT * FROM categories");
+      res.status(200).send(result1);
+      res.json(results);
+    });
   } catch (err) {
-    console.log(err);
+    res.status(500).send("Something went wrong");
   }
-  res.end();
+  connection.end();
 });
 
 /* GET all category clues in a specific category */

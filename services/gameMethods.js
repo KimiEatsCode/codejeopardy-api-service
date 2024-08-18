@@ -14,9 +14,6 @@
 
 //I got the idea to put the sql queries methods in a separate file from routes file from this tutorial https://blog.logrocket.com/build-rest-api-node-express-mysql/#setting-up-express-js-rest-api
 
-
-
-
 // try {
 //   return await connection.query(
 //     `SELECT * FROM categories`,

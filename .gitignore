@@ -132,3 +132,9 @@ config.env
 config.env
 *.env
 package-lock.json
+Dockerfile
+.dockerignore
+.vscode/tasks.json
+.vscode/launch.json
+docker-compose.debug.yml
+docker-compose.yml
