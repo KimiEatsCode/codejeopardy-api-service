@@ -9,27 +9,16 @@ const pool = require("./config");
 const port = process.env.PORT;
 const gameMethods = require("./services/gameMethods");
 const gameMethodsRouter = require("./routes/gameRoutes");
-console.log("console logging environ vars" + process.env);
+
+app.use(cors());
 
 app.use(express.json());
-app.use(cors());
 
 app.use(
   express.urlencoded({
     extended: true,
   })
 );
-
-app.get("/", async (req, res, next) => {
-  try {
-    const data = await gameMethods.getGames();
-    res.json(data.rows.rows[0]);
-  } catch (err) {
-    console.error(`Error while getting games `, err.message);
-    next(err);
-  }
-  res.end();
-});
 
 app.use(gameMethodsRouter.router0);
 app.use(gameMethodsRouter.router1);
