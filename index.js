@@ -5,11 +5,11 @@ dotenv.config();
 // dotenv.config({ path: "./config.env" });
 const morgan = require("morgan");
 let app = express();
-const gameMethodsRouter = require("./routes/gameRoutes");
 const pool = require("./config");
-
 const port = process.env.PORT;
-console.log(process.env);
+const gameMethods = require("./services/gameMethods");
+const gameMethodsRouter = require("./routes/gameRoutes");
+console.log("console logging environ vars" + process.env);
 
 app.use(express.json());
 app.use(cors());
@@ -20,8 +20,14 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => {
-  res.json({ message: "okie dokie kimi" });
+app.get("/", async (req, res, next) => {
+  try {
+    const data = await gameMethods.getGames();
+    res.json(data.rows.rows[0]);
+  } catch (err) {
+    console.error(`Error while getting games `, err.message);
+    next(err);
+  }
   res.end();
 });
 
@@ -35,8 +41,11 @@ app.use(gameMethodsRouter.router6);
 app.use(gameMethodsRouter.router7);
 app.use(gameMethodsRouter.router8);
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+// app.listen(port, () => {
+//   console.log(`Example app listening at http://localhost:${port}`);
+// });
+app.listen(3000, () => {
+  console.log(`Example app listening at http://localhost:${3000}`);
 });
 
 if (process.env.NODE_ENV === "development") {

@@ -1,13 +1,13 @@
+const Pool = require("pg").Pool;
 const dotenv = require("dotenv");
 //in dev use below
 dotenv.config({ path: "./config.env" });
 //in prod use below
 // dotenv.config();
 
-const Pool = require("pg").Pool;
-
 const env_vars = {
-  apiUrl: "https://codejeopardy-api.onrender.com"
+  // apiUrl: "https://codejeopardy-api.onrender.com"
+  apiUrl: "localhost:5432",
 };
 module.exports = env_vars;
 
@@ -23,15 +23,15 @@ module.exports = env_vars;
 // module.exports = config;
 
 const pool = new Pool({
-  // user: process.env.USERNAME,
-  // host: process.env.HOST,
-  // database: process.env.DATABASE,
-  // password: process.env.PASSWORD,
-  // port: process.env.PORT,
-  connectionString: process.env.DBConfigLink,
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  user: process.env.USERNAME,
+  host: process.env.HOST,
+  database: process.env.DATABASE,
+  password: process.env.PASSWORD,
+  port: process.env.PORT,
+  // connectionString: process.env.DBConfigLink,
+  // ssl: {
+  //   rejectUnauthorized: false,
+  // },
 });
 
 module.exports = pool;

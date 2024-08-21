@@ -11,6 +11,15 @@ async function checkSQLConnections() {
   };
 }
 
+async function getGames() {
+  console.log("games received");
+  const rows = await pool.query(`SELECT * FROM games`);
+  // console.log(rows);
+  return {
+    rows,
+  };
+}
+
 async function getGameCategories() {
   console.log("categories received");
   const rows = await pool.query(`SELECT * FROM categories`);
@@ -36,15 +45,6 @@ async function getAllClues() {
   console.log("clues received");
   const rows = await pool.query(`SELECT * FROM clues`);
   console.log("getAllClues  " + rows);
-  return {
-    rows,
-  };
-}
-
-async function getGames() {
-  console.log("games received");
-  const rows = await pool.query(`SELECT * FROM game`);
-  // console.log(rows);
   return {
     rows,
   };

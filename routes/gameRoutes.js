@@ -17,7 +17,8 @@ const app = express();
 app.use(function (req, res, next) {
   res.header(
     "Access-Control-Allow-Origin",
-    "https://codejeopardyvue.onrender.com/"
+    "localhost:5432"
+    // "https://codejeopardyvue.onrender.com/"
   ); // Replace "*" with your allowed domains
   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
   res.header(
