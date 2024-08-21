@@ -1,5 +1,6 @@
 const express = require("express");
 const gameMethods = require("../services/gameMethods");
+
 /*have to have express.Router() for each http call*/
 const router0 = express.Router();
 const router1 = express.Router();
@@ -13,31 +14,16 @@ const router8 = express.Router();
 
 const app = express();
 
-// Enable CORS for all routes
-app.use(function (req, res, next) {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "localhost:5432"
-    // "https://codejeopardyvue.onrender.com/"
-  ); // Replace "*" with your allowed domains
-  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
-
 /* GET mySQL Connections */
-router0.get("/api/checkSQLConnections", async function (req, res, next) {
-  try {
-    res.json(await gameMethods.checkSQLConnections());
-  } catch (err) {
-    console.error(`Error while getting checkSQL Connections `, err.message);
-    next(err);
-  }
-  res.end();
-});
+// router0.get("/api/checkSQLConnections", async function (req, res, next) {
+//   try {
+//     res.json(await gameMethods.checkSQLConnections());
+//   } catch (err) {
+//     console.error(`Error while getting checkSQL Connections `, err.message);
+//     next(err);
+//   }
+//   res.end();
+// });
 
 /* GET game categories. */
 router1.get("/api/game-categories", async function (req, res, next) {
