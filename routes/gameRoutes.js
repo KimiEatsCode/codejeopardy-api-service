@@ -1,15 +1,5 @@
 const express = require("express");
-const app = express();
-const connection = require("..");
-// const gameMethods = require("../services/gameMethods");
-
-//in dev use
-const dotenv = require("dotenv");
-const { Connection } = require("pg");
-dotenv.config({ path: "./config.env" });
-
-//in prod use
-// dotenv.config();
+const gameMethods = require("../services/gameMethods");
 
 /*have to have express.Router() for each http call*/
 const router0 = express.Router();
@@ -22,144 +12,124 @@ const router6 = express.Router();
 const router7 = express.Router();
 const router8 = express.Router();
 
-// Enable CORS for all routes
-app.use(function (req, res, next) {
-  res.header(
-    `Access-Control-Allow-Origin,
-    ${process.env.HOST}`
-  ); // Replace "*" with your allowed domains
-  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+const app = express();
 
-router0.get("/", (req, res, next) => {
-  res.send("test router 0");
-  connection.connect();
-});
-
-/* NOT WORKING
-/* example below with method imported into file GET game categories. */
-// router1.get("/api/game-categories", async function (req, res, next) {
-//   pool.query(gameMethods.getGameCategories(), function (err, result) {
-//     if (err) {
-//       console.log(err);
-//       res.send("Unable to get the comments");
-//     } else {
-//       res.json(result);
-//     }
-//   });
+/* GET mySQL Connections */
+// router0.get("/api/checkSQLConnections", async function (req, res, next) {
+//   try {
+//     res.json(await gameMethods.checkSQLConnections());
+//   } catch (err) {
+//     console.error(`Error while getting checkSQL Connections `, err.message);
+//     next(err);
+//   }
+//   res.end();
 // });
 
-/* WORKING
-/* with query string GET game categories  */
+/* GET game categories. */
 router1.get("/api/game-categories", async function (req, res, next) {
   try {
-    connection.connect((err, connection) => {
-      if (err) throw err;
-      const [results, fields] = connection.query("SELECT * FROM categories");
-      res.status(200).send(result1);
-      res.json(results);
-    });
+    const data = await gameMethods.getGameCategories();
+    res.json(data.data.rows);
+    // console.log("get categories " + data.data.rows[0]);
   } catch (err) {
-    res.status(500).send("Something went wrong");
+    console.error(`Error while getting game categories `, err.message);
+    next(err);
   }
-  connection.end();
 });
 
 /* GET all category clues in a specific category */
 router2.get("/api/category-clues/:catid", async function (req, res, next) {
   try {
-    const [results, fields] = await pool.query(
-      `SELECT * FROM clues WHERE category_id = ${catid} ORDER BY ASC`
-    );
-    res.json(results);
+    let catid = req.params.catid;
+    console.log(catid);
+    const data = await gameMethods.getCategoryClues(catid);
+    res.json(data.rows.rows);
   } catch (err) {
-    console.log(err);
+    console.error(`Error while getting a category clues `, err.message);
+    next(err);
   }
   res.end();
 });
 
-// //GET all clues
+//GET all clues
 router3.get("/api/allclues", async function (req, res, next) {
   try {
-    const [results, fields] = await pool.query(`SELECT * FROM clues`);
-    res.json(results);
+    const data = await gameMethods.getAllClues();
+    res.json(data.rows.rows[0]);
   } catch (err) {
-    console.log(err);
+    console.error(`Error while getting all clues `, err.message);
+    next(err);
   }
   res.end();
 });
 
-// /* GET specific category clue based on clue id */
+/* GET specific category clue based on clue id */
 router4.get("/api/category-clue/:clue_id", async function (req, res, next) {
   try {
-    const [results, fields] = await pool.query(
-      `SELECT * FROM clues WHERE clue_id = ${id}`
-    );
-    res.json(results);
+    let id = req.params.clue_id;
+    console.log(id);
+    const data = await gameMethods.getClue(id);
+    res.json(data.rows.rows[0]);
   } catch (err) {
-    console.log(err);
+    console.error(`Error while getting specific clue `, err.message);
+    next(err);
   }
   res.end();
 });
 
-// /* UPDATE answered clue id and answeredCorrect  */
+/* UPDATE answered clue id and answeredCorrect  */
 router5.patch(
   "/api/category-clue/:clueid&:answeredCorrect",
   async function (req, res, next) {
     try {
-      const [results, fields] = await pool.query(
-        `UPDATE clues SET answered = ${answeredClue} WHERE clue_id= ${id}`
-      );
-      res.json(results);
+      let id = req.params.clueid;
+      let answeredCorrect = req.params.answeredCorrect;
+      const data = await gameMethods.updateClue(id, answeredCorrect);
+      res.json(data.rows.rows[0]);
     } catch (err) {
-      console.log(err);
+      console.error(`Error while updating clue answered`, err.message);
+      next(err);
     }
     res.end();
   }
 );
 
-// /* UPDATE answered to reset game to new game */
+/* UPDATE answered to reset game to new game */
 router6.patch("/api/category-clue/newgame", async function (req, res, next) {
   try {
-    const [results, fields] = await pool.query(
-      `UPDATE clues SET answered = null
-    `
-    );
-    res.json(results);
+    const data = await gameMethods.resetClues();
+    res.json(data.rows.rows[0]);
   } catch (err) {
-    console.log(err);
+    console.error(`Error while resetting game answered to false `, err.message);
+    next(err);
   }
   res.end();
 });
 
-// /* UPDATE game score*/
+/* UPDATE game score*/
 router7.patch("/api/game/:gameid&:score", async function (req, res, next) {
   try {
-    const [results, fields] = await pool.query(
-      `UPDATE games SET game_score = ${score} WHERE id=${gameid}`
-    );
-    res.json(results);
+    let gameid = req.params.gameid;
+    let score = req.params.score;
+    console.log("set game score " + score + "gameid " + gameid);
+    const data = await gameMethods.setScore(gameid, score);
+    res.json(data.rows.rows[0]);
   } catch (err) {
-    console.log(err);
+    console.error(`Error while resetting game answered to 0 `, err.message);
+    next(err);
   }
-  res.end();
   res.end();
 });
 
-// /* GET all games */
+/* GET all games */
 router8.get("/api/games", async function (req, res, next) {
   try {
-    const [results, fields] = await pool.query(`SELECT * FROM games`);
-    res.json(results);
+    const data = await gameMethods.getGames();
+    res.json(data.rows.rows[0]);
   } catch (err) {
-    console.log(err);
+    console.error(`Error while getting category clues `, err.message);
+    next(err);
   }
-  res.end();
   res.end();
 });
 
