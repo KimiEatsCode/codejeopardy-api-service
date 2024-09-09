@@ -41,8 +41,9 @@ router1.get("/api/game-categories", async function (req, res, next) {
 router2.get("/api/category-clues/:catid", async function (req, res, next) {
   try {
     let catid = req.params.catid;
-    console.log(catid);
+
     const data = await gameMethods.getCategoryClues(catid);
+    console.log("category clues data " + data.rows.rows);
     res.json(data.rows.rows);
   } catch (err) {
     console.error(`Error while getting a category clues `, err.message);

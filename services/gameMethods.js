@@ -1,16 +1,6 @@
 const pool = require("../config");
 const helper = require("../helper");
 
-async function checkSQLConnections() {
-  console.log("Threads connected");
-  const data = await pool.query(
-    "SHOW STATUS WHERE `variable_name` = 'Threads_connected';"
-  );
-  return {
-    data,
-  };
-}
-
 async function getGames() {
   console.log("games received");
   const rows = await pool.query(`SELECT * FROM games`);
@@ -80,9 +70,9 @@ async function resetClues() {
 }
 
 async function setScore(gameid, score) {
-  console.log("game methods set score" + score);
+  console.log("games methods set score in games table" + score);
   const rows = await pool.query(
-    `UPDATE game SET game_score = ${score} WHERE id=${gameid}`
+    `UPDATE games SET game_score = ${score} WHERE id=${gameid}`
   );
   return {
     rows,
@@ -90,7 +80,6 @@ async function setScore(gameid, score) {
 }
 
 module.exports = {
-  checkSQLConnections,
   getGameCategories,
   getCategoryClues,
   getGames,
