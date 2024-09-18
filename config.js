@@ -5,11 +5,11 @@ dotenv.config({ path: "./config.env" });
 //in prod use below
 // dotenv.config();
 
-const env_vars = {
-  // apiUrl: "https://codejeopardy-api.onrender.com"
-  apiUrl: "localhost:5432",
-};
-module.exports = env_vars;
+// const env_vars = {
+//   apiUrl: "https://codejeopardy-api-service-s9s6.onrender.com/"
+//   // apiUrl: "localhost:5432",
+// };
+// module.exports = env_vars;
 
 // const config = {
 //   db: {
