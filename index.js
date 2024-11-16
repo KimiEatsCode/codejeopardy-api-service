@@ -41,8 +41,8 @@ app.use(gameMethodsRouter.router8);
 
 //If get error localhost refused to connect
 //check you passing 3000 through applisten function below
-app.listen(3000, () => {
-  console.log(`Example app listening at 3000`);
+app.listen(port, () => {
+  console.log(`Example app listening at ${port}`);
 });
 
 if (process.env.NODE_ENV === "development") {

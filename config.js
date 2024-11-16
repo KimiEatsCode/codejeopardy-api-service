@@ -12,7 +12,7 @@ const pool = new Pool({
   host: process.env.HOST,
   database: process.env.DATABASE,
   password: process.env.PASSWORD,
-  port: process.env.PORT,
+  port: process.env.PORT || 3000,
   ssl: process.env.SSL,
 });
 
