@@ -10,12 +10,16 @@ const port = process.env.PORT;
 const gameMethods = require("./services/gameMethods");
 const gameMethodsRouter = require("./routes/gameRoutes");
 
+app.use(cors()); // Enable CORS for all routes
 
-app.use(cors({
-  origin: '*', // Replace with your Vue app's origin
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+// Optional: Configure specific CORS options
+app.use(
+  cors({
+    origin: "*", // Replace with your Vue app's origin
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.use(express.json());
 
