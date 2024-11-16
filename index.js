@@ -10,7 +10,12 @@ const port = process.env.PORT;
 const gameMethods = require("./services/gameMethods");
 const gameMethodsRouter = require("./routes/gameRoutes");
 
-app.use(cors());
+
+app.use(cors({
+  origin: '*', // Replace with your Vue app's origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 
 app.use(express.json());
 
@@ -30,11 +35,10 @@ app.use(gameMethodsRouter.router6);
 app.use(gameMethodsRouter.router7);
 app.use(gameMethodsRouter.router8);
 
-// app.listen(port, () => {
-//   console.log(`Example app listening at http://localhost:${port}`);
-// });
+//If get error localhost refused to connect
+//check you passing 3000 through applisten function below
 app.listen(3000, () => {
-  console.log(`Example app listening at http://localhost:${3000}`);
+  console.log(`Example app listening at 3000`);
 });
 
 if (process.env.NODE_ENV === "development") {
