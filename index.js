@@ -12,7 +12,7 @@ const gameMethodsRouter = require("./routes/gameRoutes");
 
 
 app.use(cors({
-  origin: 'http://localhost:3000', // Replace with your Vue app's origin
+  origin: '*', // Replace with your Vue app's origin
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
