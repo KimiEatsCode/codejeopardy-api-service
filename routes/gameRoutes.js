@@ -79,7 +79,7 @@ router4.get("/api/category-clue/:clue_id", async function (req, res, next) {
 });
 
 /* UPDATE answered clue id and answeredCorrect  */
-router5.patch(
+router5.put(
   "/api/category-clue/:clueid&:answeredCorrect",
   async function (req, res, next) {
     try {
@@ -96,7 +96,7 @@ router5.patch(
 );
 
 /* UPDATE answered to reset game to new game */
-router6.patch("/api/category-clue/newgame", async function (req, res, next) {
+router6.put("/api/category-clue/newgame", async function (req, res, next) {
   try {
     const data = await gameMethods.resetClues();
     res.json(data.rows.rows[0]);
@@ -108,7 +108,7 @@ router6.patch("/api/category-clue/newgame", async function (req, res, next) {
 });
 
 /* UPDATE game score*/
-router7.patch("/api/game/:gameid&:score", async function (req, res, next) {
+router7.put("/api/game/:gameid&:score", async function (req, res, next) {
   try {
     let gameid = req.params.gameid;
     let score = req.params.score;
