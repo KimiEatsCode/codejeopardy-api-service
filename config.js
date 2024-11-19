@@ -1,11 +1,11 @@
 const Pool = require("pg").Pool;
 const dotenv = require("dotenv");
 
-//in dev use below
-// dotenv.config({ path: "./config.env" });
-
-//in prod use below
-dotenv.config();
+if (process.env.NODE_ENV === "development") {
+dotenv.config({ path: "./config.env" });
+} else if (process.env.NODE_ENV === "production") {
+  dotenv.config();
+}
 
 const pool = new Pool({
   user: process.env.USERNAME,
