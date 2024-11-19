@@ -16,7 +16,7 @@ app.use(cors()); // Enable CORS for all routes
 app.use((req, res, next) => {
   res.setHeader(
     "Access-Control-Allow-Origin",
-    "*"
+    "https://codejeopardyvue-s7pt.onrender.com"
   );
   res.setHeader(
     "Access-Control-Allow-Methods",
@@ -58,7 +58,7 @@ app.listen(3000, () => {
   console.log(`Example app listening at 3000`);
 });
 
-if (process.env.NODE_ENV = "development") {
+if ((process.env.NODE_ENV = "development")) {
   //when go to an api url aka make a api request
   //morgan shows the request  url
   console.log("env var for node_env is " + process.env.NODE_ENV);
