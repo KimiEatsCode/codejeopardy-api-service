@@ -13,6 +13,7 @@ const gameMethodsRouter = require("./routes/gameRoutes");
 app.use(function (req, res, next) {
   // res.header("Access-Control-Allow-Origin", "*");
   const allowedOrigins = [
+    "http://localhost:8080",
     "http://localhost:3000",
     "https://codejeopardyvue-s7pt.onrender.com",
     "*",
