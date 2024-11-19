@@ -14,7 +14,7 @@ app.use(function (req, res, next) {
   // res.header("Access-Control-Allow-Origin", "*");
   const allowedOrigins = [
     "http://localhost:3000",
-    "https://codejeopardyvue-s7pt.onrender.com/",
+    "https://codejeopardyvue-s7pt.onrender.com",
     "*",
   ];
   const origin = req.headers.origin;
