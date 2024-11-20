@@ -12,24 +12,8 @@ const port = process.env.PORT || 3000;
 const gameMethods = require("./services/gameMethods");
 const gameMethodsRouter = require("./routes/gameRoutes");
 
-app.use(cors())
 
-app.use(function (req, res, next) {
-  const allowedOrigins = [
-    "*"
-  ];
-  const origin = req.headers.origin;
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-  }
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
-  res.header("Access-Control-Allow-credentials", true);
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, UPDATE");
-  next();
-});
+app.use(cors())
 
 app.use(express.json());
 
@@ -38,6 +22,7 @@ app.use(
     extended: true,
   })
 );
+
 
 app.use(gameMethodsRouter.router0);
 app.use(gameMethodsRouter.router1);
@@ -52,7 +37,7 @@ app.use(gameMethodsRouter.router8);
 //If get error localhost refused to connect
 //check you passing 3000 through applisten function below
 app.listen(3000, () => {
-  console.log(`Example app listening at ${port}`);
+  console.log(`Example app listening at 3000`);
 });
 
 // if ((process.env.NODE_ENV = "development")) {

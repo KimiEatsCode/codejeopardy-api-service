@@ -1,5 +1,6 @@
 const express = require("express");
 const gameMethods = require("../services/gameMethods");
+const app = express();
 
 app.use(function (req, res, next) {
   res.header(
@@ -25,7 +26,7 @@ const router6 = express.Router();
 const router7 = express.Router();
 const router8 = express.Router();
 
-const app = express();
+
 
 /* GET welcome message*/
 router0.get("/", async function (req, res, next) {
