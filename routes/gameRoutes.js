@@ -17,6 +17,7 @@ const app = express();
 /* GET welcome message*/
 router0.get("/", async function (req, res, next) {
   console.log("api connection is working");
+  res.json("route of api working")
   res.end();
 });
 

@@ -7,18 +7,17 @@ if ((process.env.NODE_ENV = "development")) {
 }
 const morgan = require("morgan");
 let app = express();
+const cors = require('cors');
 const pool = require("./config");
 const port = 3000;
 const gameMethods = require("./services/gameMethods");
 const gameMethodsRouter = require("./routes/gameRoutes");
 
+app.use(cors())
+
 app.use(function (req, res, next) {
   const allowedOrigins = [
-    "http://localhost:8080",
-    "http://localhost:3000",
-    "https://codejeopardyvue-s7pt.onrender.com",
-    "*",
-    "codejeopardy-api-service-ap1e:10000/allclues",
+    "*"
   ];
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
