@@ -18,7 +18,7 @@ app.use(function (req, res, next) {
     "http://localhost:3000",
     "https://codejeopardyvue-s7pt.onrender.com",
     "*",
-    "codejeopardy-api-service-ap1e:10000",
+    "codejeopardy-api-service-ap1e:10000/*",
   ];
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
