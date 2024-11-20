@@ -1,10 +1,9 @@
 const express = require("express");
 const dotenv = require("dotenv");
-if ((process.env.NODE_ENV = "development")) {
-  dotenv.config({ path: "./config.env" });
-} else if ((process.env.NODE_ENV = "production")) {
-  dotenv.config();
-}
+
+// dotenv.config({ path: "./config.env" });
+dotenv.config();
+
 const morgan = require("morgan");
 let app = express();
 const cors = require('cors');
