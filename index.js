@@ -8,7 +8,7 @@ const morgan = require("morgan");
 let app = express();
 const cors = require('cors');
 const pool = require("./config");
-const port = 1000;
+const port = process.env.PORT || 3000;
 const gameMethods = require("./services/gameMethods");
 const gameMethodsRouter = require("./routes/gameRoutes");
 
@@ -55,9 +55,9 @@ app.listen(port, () => {
   console.log(`Example app listening at ${port}`);
 });
 
-if ((process.env.NODE_ENV = "development")) {
-  //when go to an api url aka make a api request
-  //morgan shows the request  url
-  console.log("env var for node_env is " + process.env.NODE_ENV);
-  app.use(morgan("dev"));
-}
+// if ((process.env.NODE_ENV = "development")) {
+//   //when go to an api url aka make a api request
+//   //morgan shows the request  url
+//   console.log("env var for node_env is " + process.env.NODE_ENV);
+//   app.use(morgan("dev"));
+// }
