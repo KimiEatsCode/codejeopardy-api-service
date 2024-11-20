@@ -1,12 +1,12 @@
 const express = require("express");
-const cors = require("cors");
+// const cors = require("cors");
 const dotenv = require("dotenv");
-dotenv.config();
-// dotenv.config({ path: "./config.env" });
+// dotenv.config();
+dotenv.config({ path: "./config.env" });
 const morgan = require("morgan");
 let app = express();
 const pool = require("./config");
-const port = process.env.PORT;
+const port = 3000;
 const gameMethods = require("./services/gameMethods");
 const gameMethodsRouter = require("./routes/gameRoutes");
 

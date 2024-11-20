@@ -14,16 +14,11 @@ const router8 = express.Router();
 
 const app = express();
 
-/* GET mySQL Connections */
-// router0.get("/api/checkSQLConnections", async function (req, res, next) {
-//   try {
-//     res.json(await gameMethods.checkSQLConnections());
-//   } catch (err) {
-//     console.error(`Error while getting checkSQL Connections `, err.message);
-//     next(err);
-//   }
-//   res.end();
-// });
+/* GET welcome message*/
+router0.get("/", async function (req, res, next) {
+  console.log("api connection is working");
+  res.end();
+});
 
 /* GET game categories. */
 router1.get("/api/game-categories", async function (req, res, next) {
