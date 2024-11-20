@@ -1,10 +1,10 @@
 const express = require("express");
 const dotenv = require("dotenv");
-if (process.env.NODE_ENV = "development") {
+if ((process.env.NODE_ENV = "development")) {
   dotenv.config({ path: "./config.env" });
-  } else if (process.env.NODE_ENV = "production") {
-    dotenv.config();
-  }
+} else if ((process.env.NODE_ENV = "production")) {
+  dotenv.config();
+}
 const morgan = require("morgan");
 let app = express();
 const pool = require("./config");
@@ -18,6 +18,7 @@ app.use(function (req, res, next) {
     "http://localhost:3000",
     "https://codejeopardyvue-s7pt.onrender.com",
     "*",
+    "codejeopardy-api-service-ap1e:10000",
   ];
   const origin = req.headers.origin;
   if (allowedOrigins.includes(origin)) {
