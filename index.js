@@ -8,7 +8,7 @@ const morgan = require("morgan");
 let app = express();
 const cors = require('cors');
 const pool = require("./config");
-const port = 3000;
+const port = 1000;
 const gameMethods = require("./services/gameMethods");
 const gameMethodsRouter = require("./routes/gameRoutes");
 
