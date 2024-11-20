@@ -1,6 +1,19 @@
 const express = require("express");
 const gameMethods = require("../services/gameMethods");
 
+app.use(function (req, res, next) {
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://codejeopardy-api-service-ap1e.onrender.com"
+  ); // Replace "*" with your allowed domains
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
+
 /*have to have express.Router() for each http call*/
 const router0 = express.Router();
 const router1 = express.Router();
@@ -17,7 +30,7 @@ const app = express();
 /* GET welcome message*/
 router0.get("/", async function (req, res, next) {
   console.log("api connection is working");
-  res.json("route of api working")
+  res.json("route of api working");
   res.end();
 });
 
