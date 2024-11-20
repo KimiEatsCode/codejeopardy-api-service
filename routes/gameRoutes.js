@@ -39,7 +39,8 @@ router0.get("/", async function (req, res, next) {
 router1.get("/api/game-categories", async function (req, res, next) {
   try {
     const data = await gameMethods.getGameCategories();
-    res.json(data.data.rows);
+    // res.json(data.data.rows);
+    res.json('router 1 game categories')
     // console.log("get categories " + data.data.rows[0]);
   } catch (err) {
     console.error(`Error while getting game categories `, err.message);
