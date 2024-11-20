@@ -1,8 +1,10 @@
 const express = require("express");
-// const cors = require("cors");
 const dotenv = require("dotenv");
-// dotenv.config();
-dotenv.config({ path: "./config.env" });
+if (process.env.NODE_ENV = "development") {
+  dotenv.config({ path: "./config.env" });
+  } else if (process.env.NODE_ENV = "production") {
+    dotenv.config();
+  }
 const morgan = require("morgan");
 let app = express();
 const pool = require("./config");
@@ -11,7 +13,6 @@ const gameMethods = require("./services/gameMethods");
 const gameMethodsRouter = require("./routes/gameRoutes");
 
 app.use(function (req, res, next) {
-  // res.header("Access-Control-Allow-Origin", "*");
   const allowedOrigins = [
     "http://localhost:8080",
     "http://localhost:3000",
