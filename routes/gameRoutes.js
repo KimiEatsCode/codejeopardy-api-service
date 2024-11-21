@@ -16,7 +16,7 @@ const router8 = express.Router();
 /* GET welcome message*/
 router0.get("/", async function (req, res, next) {
   try {
-    const client = await pool.connect();
+    // const client = await pool.connect();
     res.json("test");
   } catch (err) {
     console.error(err);
@@ -28,6 +28,7 @@ router0.get("/", async function (req, res, next) {
 router8.get("/api/games", async function (req, res, next) {
   try {
     const data = await gameMethods.getGames();
+    console.log("what data coming back looks like -  " + JSON.stringify(data));
     console.log("get games " + JSON.stringify(data.rows.rows[0]));
     res.json(data.rows.rows[0]);
   } catch (err) {
