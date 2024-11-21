@@ -2,7 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config({ path: "./config.env" });
 // dotenv.config();
-
+const PORT = process.env.PORT || 1000;
 let app = express();
 const cors = require('cors');
 const gameMethodsRouter = require("./routes/gameRoutes");
@@ -44,8 +44,8 @@ app.use(gameMethodsRouter.router8);
 
 //If get error localhost refused to connect
 //check you passing 3000 through applisten function below
-// app.listen(PORT, () => {
-//   console.log(`Example app listening at ${PORT}`);
-// });
+app.listen(PORT, () => {
+  console.log(`Example app listening at ${PORT}`);
+});
 
 
