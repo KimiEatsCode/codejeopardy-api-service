@@ -46,7 +46,7 @@ router1.get("/api/game-categories", async function (req, res, next) {
 
     console.log("get categories " + JSON.stringify(data.rows.rows[0]));
   } catch (err) {
-    console.error(`Error while getting game categories `, err.message);
+    console.error(`Error while getting game categories hiya`, err.message);
     next(err);
   }
 });
