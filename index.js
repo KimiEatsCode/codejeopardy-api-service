@@ -20,7 +20,7 @@ app.use(cors());
 app.use(function (req, res, next) {
   res.header(
     "Access-Control-Allow-Origin","localhost:3000",
-    "https://codejeopardy-api-service-ap1e.onrender.com"
+    "https://codejeopardy-api-service-ap1e.onrender.com","https://codejeopardy-api-service-ap1e.onrender.com/api/*"
   ); // Replace "*" with your allowed domains
   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
   res.header(
