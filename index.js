@@ -4,10 +4,9 @@ const dotenv = require("dotenv");
 // dotenv.config({ path: "./config.env" });
 dotenv.config();
 
-const morgan = require("morgan");
 let app = express();
 const cors = require('cors');
-const pool = require("./config");
+// const pool = require("./config");
 const port = process.env.PORT || 3000;
 const gameMethods = require("./services/gameMethods");
 const gameMethodsRouter = require("./routes/gameRoutes");
@@ -40,9 +39,3 @@ app.listen(3000, () => {
   console.log(`Example app listening at 3000`);
 });
 
-// if ((process.env.NODE_ENV = "development")) {
-//   //when go to an api url aka make a api request
-//   //morgan shows the request  url
-//   console.log("env var for node_env is " + process.env.NODE_ENV);
-//   app.use(morgan("dev"));
-// }

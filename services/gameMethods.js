@@ -1,4 +1,4 @@
-const pool = require("../config");
+const pool = require("../index");
 const helper = require("../helper");
 
 async function getGames() {

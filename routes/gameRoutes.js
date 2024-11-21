@@ -1,19 +1,7 @@
 const express = require("express");
 const gameMethods = require("../services/gameMethods");
-const app = express();
+// const app = express();
 
-app.use(function (req, res, next) {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://codejeopardy-api-service-ap1e.onrender.com"
-  ); // Replace "*" with your allowed domains
-  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
 
 /*have to have express.Router() for each http call*/
 const router0 = express.Router();
@@ -37,10 +25,11 @@ router0.get("/", async function (req, res, next) {
 
 /* GET game categories. */
 router1.get("/api/game-categories", async function (req, res, next) {
+  res.json('router 1 game categories')
   try {
     const data = await gameMethods.getGameCategories();
-    // res.json(data.data.rows);
-    res.json('router 1 game categories')
+    res.json(data.data.rows);
+
     // console.log("get categories " + data.data.rows[0]);
   } catch (err) {
     console.error(`Error while getting game categories `, err.message);
