@@ -4,8 +4,8 @@ const { Pool } = require('pg');
 
 
 const dotenv = require("dotenv");
-// dotenv.config({ path: "./config.env" });
-dotenv.config();
+dotenv.config({ path: "./config.env" });
+// dotenv.config();
 
 const pool = new Pool({
   USERNAME: process.env.USERNAME,
