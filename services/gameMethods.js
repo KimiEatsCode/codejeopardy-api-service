@@ -1,27 +1,26 @@
-const pool = require("../index");
-const helper = require("../helper");
+const pool = require("../config");
+
 
 async function getGames() {
-  console.log("games received");
+  const client = await pool.connect();
+  console.log(client + " client ****");
   const rows = await pool.query(`SELECT * FROM games`);
-  // console.log(rows);
   return {
     rows,
   };
 }
 
 async function getGameCategories() {
-  console.log("categories received");
-  const rows = await pool.query(`SELECT * FROM categories`);
-  const data = helper.emptyOrRows(rows);
-  // console.log(data);
+  const client = await pool.connect();
+  const rows = await client.query(`SELECT * FROM categories`);
+
   return {
-    data,
+    rows,
   };
 }
 
 async function getCategoryClues(catid) {
-  console.log("clues received");
+  const client = await pool.connect();
   const rows = await pool.query(
     `SELECT * FROM clues WHERE category_id = ${catid} ORDER BY value ASC`
   );
@@ -32,7 +31,7 @@ async function getCategoryClues(catid) {
 ``;
 
 async function getAllClues() {
-  console.log("clues received");
+  const client = await pool.connect();
   const rows = await pool.query(`SELECT * FROM clues`);
   console.log("getAllClues  " + rows);
   return {
@@ -41,16 +40,15 @@ async function getAllClues() {
 }
 
 async function getClue(id) {
-  console.log("clue received");
+  const client = await pool.connect();
   const rows = await pool.query(`SELECT * FROM clues WHERE clue_id = ${id}`);
-  console.log("single clue getClue" + JSON.stringify(rows));
   return {
     rows,
   };
 }
 
 async function updateClue(id, answeredClue) {
-  console.log("clue answered api file " + answeredClue);
+  const client = await pool.connect();
   const rows = await pool.query(
     `UPDATE clues SET answered = ${answeredClue} WHERE clue_id= ${id}`
   );
@@ -61,7 +59,7 @@ async function updateClue(id, answeredClue) {
 }
 
 async function resetClues() {
-  console.log("reset game");
+  const client = await pool.connect();
   const rows = await pool.query(`UPDATE clues SET answered = null
   `);
   return {
@@ -70,7 +68,7 @@ async function resetClues() {
 }
 
 async function setScore(gameid, score) {
-  console.log("games methods set score in games table" + score);
+  const client = await pool.connect();
   const rows = await pool.query(
     `UPDATE games SET game_score = ${score} WHERE id=${gameid}`
   );
