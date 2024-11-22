@@ -17,7 +17,9 @@ dotenv.config();
 // });
 
 
-const connectionString = 'postgresql://kimicodes:lKMnOqQN7m46GGVb3TDmyKamDjyP49D7@dpg-cspm6mij1k6c73b04mtg-a/codejeopostgres_l8pp?sslmode=require'
+// const connectionString = 'postgresql://kimicodes:lKMnOqQN7m46GGVb3TDmyKamDjyP49D7@dpg-cspm6mij1k6c73b04mtg-a/codejeopostgres_l8pp?sslmode=require'
+
+const connectionString = "postgresql://kimicodes:lKMnOqQN7m46GGVb3TDmyKamDjyP49D7@dpg-cspm6mij1k6c73b04mtg-a.oregon-postgres.render.com/codejeopostgres_l8pp"
 
 // const pool = new Pool({
 //   connectionString,

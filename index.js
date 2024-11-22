@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 const PORT = process.env.PORT || 1000;
 let app = express();
-const cors = require('cors');
+const cors = require("cors");
 const gameMethodsRouter = require("./routes/gameRoutes");
 
 app.use(express.json());
@@ -16,11 +16,14 @@ app.use(
 );
 app.use(cors());
 
-
 app.use(function (req, res, next) {
   res.header(
-    "Access-Control-Allow-Origin","localhost:3000",
-    "https://codejeopardy-api-service-ap1e.onrender.com","https://codejeopardy-api-service-ap1e.onrender.com/api/*"
+    "Access-Control-Allow-Origin",
+    "localhost:3000",
+    "http://codejeopardy-api-service-ap1e:10000/*",
+    "localhost:8080/*",
+    "https://codejeopardy-api-service-ap1e.onrender.com",
+    "https://codejeopardy-api-service-ap1e.onrender.com/api/*"
   ); // Replace "*" with your allowed domains
   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
   res.header(
@@ -29,7 +32,6 @@ app.use(function (req, res, next) {
   );
   next();
 });
-
 
 app.use(gameMethodsRouter.router0);
 app.use(gameMethodsRouter.router1);
@@ -41,11 +43,8 @@ app.use(gameMethodsRouter.router6);
 app.use(gameMethodsRouter.router7);
 app.use(gameMethodsRouter.router8);
 
-
 //If get error localhost refused to connect
 //check you passing 3000 through applisten function below
 app.listen(PORT, () => {
   console.log(`Example app listening at ${PORT}`);
 });
-
-
