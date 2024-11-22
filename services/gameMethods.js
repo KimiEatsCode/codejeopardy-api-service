@@ -1,5 +1,25 @@
-const pool = require("../config");
+// const pool = require("../config");
+const pg = require("pg");
+const dotenv = require("dotenv");
+dotenv.config({ path: "./config.env" });
 
+const config = {
+  NODE_ENV: process.env.NODE_ENV,
+  PORT: process.env.PORT,
+  USERNAME: process.env.USERNAME,
+  HOST: process.env.HOST,
+  DATABASE: process.env.DATABASE,
+  PASSWORD: process.env.PASSWORD,
+  SSL: process.env.SSL,
+};
+
+// pool takes the object above -config- as parameter
+const pool = new pg.Pool(config);
+
+pool.on("error", (err, client) => {
+  console.error("Unexpected error on idle client", err);
+  process.exit(-1);
+});
 
 async function getGames() {
   const client = await pool.connect();
@@ -10,14 +30,29 @@ async function getGames() {
   };
 }
 
-async function getGameCategories() {
-  const client = await pool.connect();
-  const rows = await client.query(`SELECT * FROM categories`);
+// new way, available since 6.0.0:
 
-  return {
-    rows,
-  };
-}
+// create a pool
+// var pool = new pg.Pool()
+
+// connection using created pool
+pool.connect(function (err, client, done) {
+  const rows = client.query(`SELECT * FROM categories`);
+  done();
+  return rows;
+});
+
+// pool shutdown
+pool.end();
+
+// async function getGameCategories() {
+//   const client = await pool.connect();
+//   const rows = await client.query(`SELECT * FROM categories`);
+
+//   return {
+//     rows,
+//   };
+// }
 
 async function getCategoryClues(catid) {
   const client = await pool.connect();

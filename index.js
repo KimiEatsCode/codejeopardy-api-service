@@ -2,7 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 dotenv.config({ path: "./config.env" });
 // dotenv.config();
-const PORT = process.env.PORT || 1000;
+const PORT = process.env.PORT || 3000;
 let app = express();
 const cors = require("cors");
 const gameMethodsRouter = require("./routes/gameRoutes");
@@ -10,10 +10,12 @@ const gameMethodsRouter = require("./routes/gameRoutes");
 app.use(express.json());
 
 app.use(
-  express.urlencoded({
+  bodyParser.urlencoded({
     extended: true,
   })
 );
+
+
 app.use(cors());
 
 app.use(function (req, res, next) {
@@ -45,6 +47,6 @@ app.use(gameMethodsRouter.router8);
 
 //If get error localhost refused to connect
 //check you passing 3000 through applisten function below
-app.listen(PORT, () => {
+app.listen(3000, () => {
   console.log(`Example app listening at ${PORT}`);
 });
