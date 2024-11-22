@@ -1,12 +1,20 @@
 // const pool = require("../config");
 // const pg = require("pg");
+const dotenv = require("dotenv");
 const mysql = require('mysql2');
+const express = require("express");
+let app = express();
+dotenv.config();
 
-// const dotenv = require("dotenv");
 // dotenv.config({ path: "./config.env" });
 
 const connection = mysql.createConnection({
-  DB_URL:process.env.DB_URL
+  port: process.env.PORT,
+  user: process.env.USERNAME,
+  host: process.env.HOST,
+  database: process.env.DATABASE,
+  password: process.env.PASSWORD,
+  ssl: process.env.SSL,
 });
 
 connection.connect((err) => {
