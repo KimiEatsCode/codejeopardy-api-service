@@ -10,12 +10,10 @@ const gameMethodsRouter = require("./routes/gameRoutes");
 app.use(express.json());
 
 app.use(
-  bodyParser.urlencoded({
+  express.urlencoded({
     extended: true,
   })
 );
-
-
 app.use(cors());
 
 app.use(function (req, res, next) {

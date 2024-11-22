@@ -36,23 +36,23 @@ async function getGames() {
 // var pool = new pg.Pool()
 
 // connection using created pool
-pool.connect(function (err, client, done) {
-  const rows = client.query(`SELECT * FROM categories`);
-  done();
-  return rows;
-});
+// pool.connect(function (err, client, done) {
+//   const rows = client.query(`SELECT * FROM categories`);
+//   done();
+//   return rows;
+// });
 
 // pool shutdown
-pool.end();
+// pool.end();
 
-// async function getGameCategories() {
-//   const client = await pool.connect();
-//   const rows = await client.query(`SELECT * FROM categories`);
+async function getGameCategories() {
+  const client = await pool.connect();
+  const rows = await pool.query(`SELECT * FROM categories`);
 
-//   return {
-//     rows,
-//   };
-// }
+  return {
+    rows,
+  };
+}
 
 async function getCategoryClues(catid) {
   const client = await pool.connect();
