@@ -1,7 +1,7 @@
 // const pool = require("../config");
 // const pg = require("pg");
 const dotenv = require("dotenv");
-const mysql = require('mysql2');
+const mysql = require("mysql2");
 const express = require("express");
 let app = express();
 dotenv.config();
@@ -19,7 +19,7 @@ const connection = mysql.createConnection({
 
 connection.connect((err) => {
   if (err) throw err;
-  console.log('Connected to MySQL!');
+  console.log("Connected to MySQL!");
 });
 
 // pool takes the object above -config- as parameter
@@ -30,9 +30,8 @@ connection.connect((err) => {
 //   process.exit(-1);
 // });
 
-
-app.get('/test', (req, res) => {
-  connection.query('SELECT * FROM categories', (err, results) => {
+app.get("/test", (req, res) => {
+  connection.query("SELECT * FROM categories", (err, results) => {
     if (err) throw err;
     res.json(results);
   });
