@@ -1,6 +1,6 @@
 
 const express = require('express');
-const { Pool, Client } = require("pg")
+const { Pool } = require("pg")
 
 let app = express();
 const dotenv = require("dotenv");
