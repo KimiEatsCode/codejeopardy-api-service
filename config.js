@@ -1,46 +1,46 @@
 
 const express = require('express');
-const { Pool } = require("pg")
-
+const pg = require("pg")
 let app = express();
+
 const dotenv = require("dotenv");
-// dotenv.config({ path: "./config.env" });
-dotenv.config();
+dotenv.config({ path: "./config.env" });
+// dotenv.config();
 
-// const pool = new Pool({
-//   USERNAME: process.env.USERNAME,
-//   HOST: process.env.HOST,
-//   DATABASE: process.env.DATABASE,
-//   PASSWORD: process.env.PASSWORD,
-//   PORT: process.env.PORT,
-//   ssl: process.env.SSL,
-// });
-
-
-const connectionString = 'postgresql://kimicodes:lKMnOqQN7m46GGVb3TDmyKamDjyP49D7@dpg-cspm6mij1k6c73b04mtg-a/codejeopostgres_l8pp'
-
-//external
-// const connectionString = "postgresql://kimicodes:lKMnOqQN7m46GGVb3TDmyKamDjyP49D7@dpg-cspm6mij1k6c73b04mtg-a.oregon-postgres.render.com/codejeopostgres_l8pp"
-
-// const pool = new Pool({
-//   connectionString,
-// })
-
-//  pool.query('SELECT NOW()')
-//  pool.end()
-
-// const client = new Client({
-//   connectionString,
-// })
-
-//  client.connect()
-
-// //  client.query('SELECT NOW()')
-
-// //  client.end()
-
-// module.exports = pool;
-
-module.exports = {
-  query: (text, params) => pool.query(text, params)
+const config = {
+  NODE_ENV: process.env.NODE_ENV,
+  PORT: process.env.PORT,
+  USERNAME: process.env.USERNAME,
+  HOST: process.env.HOST,
+  DATABASE: process.env.DATABASE,
+  PASSWORD: process.env.PASSWORD,
+  SSL: process.env.SSL,
 };
+
+// pool takes the object above -config- as parameter
+const pool = new pg.Pool(config);
+
+pool.on('error', (err, client) => {
+  console.error('Unexpected error on idle client', err);
+  process.exit(-1);
+});
+
+
+app.get('/', (req, res, next) => {
+   pool.connect(function (err, client, done) {
+       if (err) {
+           console.log("Can not connect to the DB" + err);
+       }
+       client.query('SELECT * FROM GetAllStudent()', function (err, result) {
+            done();
+            if (err) {
+                console.log(err);
+                res.status(400).send(err);
+            }
+            res.status(200).send(result.rows);
+       })
+   })
+});
+
+
+module.exports = pool;
