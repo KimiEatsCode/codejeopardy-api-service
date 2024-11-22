@@ -1,24 +1,33 @@
 // const pool = require("../config");
-const pg = require("pg");
-const dotenv = require("dotenv");
-dotenv.config({ path: "./config.env" });
+// const pg = require("pg");
+const mysql = require('mysql2');
 
-const config = {
-  NODE_ENV: process.env.NODE_ENV,
-  PORT: process.env.PORT,
-  USERNAME: process.env.USERNAME,
-  HOST: process.env.HOST,
-  DATABASE: process.env.DATABASE,
-  PASSWORD: process.env.PASSWORD,
-  SSL: process.env.SSL,
-};
+// const dotenv = require("dotenv");
+// dotenv.config({ path: "./config.env" });
+
+const connection = mysql.createConnection({
+  DB_URL:process.env.DB_URL
+});
+
+connection.connect((err) => {
+  if (err) throw err;
+  console.log('Connected to MySQL!');
+});
 
 // pool takes the object above -config- as parameter
-const pool = new pg.Pool(config);
+// const pool = new pg.Pool(config);
 
-pool.on("error", (err, client) => {
-  console.error("Unexpected error on idle client", err);
-  process.exit(-1);
+// pool.on("error", (err, client) => {
+//   console.error("Unexpected error on idle client", err);
+//   process.exit(-1);
+// });
+
+
+app.get('/test', (req, res) => {
+  connection.query('SELECT * FROM categories', (err, results) => {
+    if (err) throw err;
+    res.json(results);
+  });
 });
 
 async function getGames() {
