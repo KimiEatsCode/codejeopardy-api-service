@@ -9,7 +9,7 @@ dotenv.config();
 // dotenv.config({ path: "./config.env" });
 
 const connection = mysql.createConnection({
-  POSTGRES_URL:process.env.DB_URL
+  DB_URL:process.env.DB_URL
   // port: process.env.PORT,
   // user: process.env.USERNAME,
   // host: process.env.HOST,
