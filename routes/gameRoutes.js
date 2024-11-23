@@ -24,6 +24,19 @@ router0.get("/", async function (req, res, next) {
   }
 });
 
+/* GET all games */
+router8.get("/api/games", async function (req, res, next) {
+  try {
+    const data =  gameMethods.getGames();
+    console.log('game' + data)
+    res.json(data);
+  } catch (error) {
+    return res.status(500).json({ error: `get games query failed Internal Server Error` });
+  }
+
+  // res.end();
+});
+
 /* GET game categories. */
 router1.get("/api/game-categories", async function (req, res, next) {
   try {
@@ -124,18 +137,7 @@ router7.put("/api/game/:gameid&:score", async function (req, res, next) {
 });
 
 
-/* GET all games */
-router8.get("/api/games", async function (req, res, next) {
-  try {
-    const data =  gameMethods.getGames();
-    console.log('game' + data)
-    res.json(data);
-  } catch (error) {
-    return res.status(500).json({ error: `get games query failed Internal Server Error` });
-  }
 
-  // res.end();
-});
 
 
 // module.exports =   router;

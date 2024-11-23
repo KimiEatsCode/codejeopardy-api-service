@@ -21,15 +21,12 @@ const test =(req, res) => {
 }
 
 const getGames =(req, res) => {
-  client.query('SELECT * FROM games', (err, res) => {
- if (err) throw err;
- const data = [];
- for (let row of res.rows) {
-   data = row;
- }
- client.end();
- return data;
-});
+  try { const data = client.query('SELECT * FROM games');
+     return data;
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('Error fetching users');
+}
 }
 
 // async function getGames() {
