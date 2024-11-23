@@ -9,7 +9,7 @@ dotenv.config({ path: "./config.env" });
 
 async function getGames() {
 
- const rows = await db.pool.query(`SELECT * FROM games`);
+ const rows =  db.pool.query(`SELECT * FROM games`);
   return {
     rows,
   }
