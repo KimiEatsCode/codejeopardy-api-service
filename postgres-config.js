@@ -1,6 +1,6 @@
 
 const Pool = require("pg").Pool;
-
+require('dotenv').config();
 
 const pool = new Pool ({
     user: process.env.USERNAME,
@@ -10,7 +10,7 @@ const pool = new Pool ({
     port: process.env.PORT,
     ssl: process.env.SSL,
   });
-  
+
 
 // new way, available since 6.0.0:
 
@@ -27,15 +27,15 @@ const pool = new Pool ({
 // pool shutdown
 // pool.end();
 
-  
+
   // pool takes the object above -config- as parameter
 //   const pool = new pg.Pool(config);
-  
+
 //   pool.on("error", (err, client) => {
 //     console.error("Unexpected error on idle client", err);
 //     process.exit(-1);
 //   });
-  
+
   module.exports = {
     pool
   }

@@ -1,8 +1,7 @@
 const express = require("express");
 let app = express();
-// const dotenv = require("dotenv");
-// // dotenv.config({ path: "./config.env" });
-// dotenv.config();
+const dotenv = require("dotenv");
+require('dotenv').config();
 const PORT = process.env.PORT || 3000;
 
 const cors = require("cors");
@@ -29,8 +28,7 @@ app.use(function (req, res, next) {
   );
   next();
 });
-
-
+app.get('/', gameMethods.games);
 app.get('/api/games', gameMethods.games);
 
 
