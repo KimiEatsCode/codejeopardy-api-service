@@ -1,13 +1,13 @@
 {
-  "name": "db-api",
+  "name": "codejeo",
   "version": "1.0.0",
-  "description": "",
+  "description": "Web app to practice code questions and concepts",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Sarah Kimi Rettig",
   "license": "ISC",
   "dependencies": {
     "@mysql/xdevapi": "^8.0.33",
@@ -15,8 +15,6 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "http-proxy-middleware": "^2.0.6",
-    "morgan": "^1.10.0",
-    "mysql2": "^3.11.4",
     "pg": "^8.12.0",
     "sequelize": "^6.37.3"
   },
