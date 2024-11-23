@@ -24,7 +24,9 @@ const getGames =(req, res) => {
   client.query('SELECT * FROM games', (err, res) => {
  if (err) throw err;
  for (let row of res.rows) {
-   res.json(row)
+   return {
+    row
+   }
  }
  client.end();
 });
