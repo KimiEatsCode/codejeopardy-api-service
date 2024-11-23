@@ -134,15 +134,16 @@ router.get("/api/games", async function (req, res, next) {
 //   // res.end();
 // });
 
-module.exports = {
-  router
-  // router0,
-  // router1,
-  // router2,
-  // router3,
-  // router4,
-  // router5,
-  // router6,
-  // router7,
-  // router8,
-};
+module.exports =   router;
+
+// {
+//   // router0,
+//   // router1,
+//   // router2,
+//   // router3,
+//   // router4,
+//   // router5,
+//   // router6,
+//   // router7,
+//   // router8,
+// };
