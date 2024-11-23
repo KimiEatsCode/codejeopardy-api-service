@@ -1,66 +1,27 @@
-// const pool = require("../config");
+const db = require("../postgres-config");
 const pg = require("pg");
-const dotenv = require("dotenv");
-// const mysql = require("mysql2");
+
 const express = require("express");
 let app = express();
-dotenv.config();
 
-// dotenv.config({ path: "./config.env" });
+const dotenv = require('dotenv')
+dotenv.config({ path: "./config.env" });
+// dotenv.config();
 
-const config = {
-  DB_URL:process.env.DB_URL
-  // port: process.env.PORT,
-  // user: process.env.USERNAME,
-  // host: process.env.HOST,
-  // database: process.env.DATABASE,
-  // password: process.env.PASSWORD,
-  // ssl: process.env.SSL,
-};
-
-// connection.connect((err) => {
-//   if (err) throw err;
-//   console.log("Connected to MySQL!");
-// });
-
-// pool takes the object above -config- as parameter
-const pool = new pg.Pool(config);
-
-pool.on("error", (err, client) => {
-  console.error("Unexpected error on idle client", err);
-  process.exit(-1);
-});
-
-app.get("/test", (req, res) => {
-  connection.query("SELECT * FROM categories", (err, results) => {
-    if (err) throw err;
-    res.json(results);
-  });
-});
 
 async function getGames() {
-  const client = await pool.connect();
-  console.log(client + " client ****");
-  const rows = await pool.query(`SELECT * FROM games`);
+  // const client = await pool.connect();
+  // console.log(client + " client ****");
+  try { const rows = await db.pool.query(`SELECT * FROM games`);
   return {
     rows,
-  };
+  } 
+} catch (err){
+  if(err) {
+    return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "get games query failed" }); // 500
+  }
 }
-
-// new way, available since 6.0.0:
-
-// create a pool
-// var pool = new pg.Pool()
-
-// connection using created pool
-// pool.connect(function (err, client, done) {
-//   const rows = client.query(`SELECT * FROM categories`);
-//   done();
-//   return rows;
-// });
-
-// pool shutdown
-// pool.end();
+}
 
 async function getGameCategories() {
   const client = await pool.connect();
@@ -130,9 +91,9 @@ async function setScore(gameid, score) {
 }
 
 module.exports = {
+  getGames,
   getGameCategories,
   getCategoryClues,
-  getGames,
   getClue,
   updateClue,
   resetClues,
