@@ -1,14 +1,14 @@
-// const pool = require("../config");
-// const pg = require("pg");
+const pool = require("../config");
+const pg = require("pg");
 const dotenv = require("dotenv");
-const mysql = require("mysql2");
+// const mysql = require("mysql2");
 const express = require("express");
 let app = express();
 dotenv.config();
 
 // dotenv.config({ path: "./config.env" });
 
-const connection = mysql.createConnection({
+const config = {
   DB_URL:process.env.DB_URL
   // port: process.env.PORT,
   // user: process.env.USERNAME,
@@ -16,20 +16,20 @@ const connection = mysql.createConnection({
   // database: process.env.DATABASE,
   // password: process.env.PASSWORD,
   // ssl: process.env.SSL,
-});
+};
 
-connection.connect((err) => {
-  if (err) throw err;
-  console.log("Connected to MySQL!");
-});
+// connection.connect((err) => {
+//   if (err) throw err;
+//   console.log("Connected to MySQL!");
+// });
 
 // pool takes the object above -config- as parameter
-// const pool = new pg.Pool(config);
+const pool = new pg.Pool(config);
 
-// pool.on("error", (err, client) => {
-//   console.error("Unexpected error on idle client", err);
-//   process.exit(-1);
-// });
+pool.on("error", (err, client) => {
+  console.error("Unexpected error on idle client", err);
+  process.exit(-1);
+});
 
 app.get("/test", (req, res) => {
   connection.query("SELECT * FROM categories", (err, results) => {
