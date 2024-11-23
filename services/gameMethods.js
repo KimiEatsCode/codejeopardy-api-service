@@ -1,19 +1,22 @@
 const db = require("../postgres-config");
-const pg = require("pg");
-
-const express = require("express");
-
-const dotenv = require('dotenv')
-dotenv.config({ path: "./config.env" });
 
 
-async function getGames() {
+// async function getGames() {
 
- const rows =  db.pool.query(`SELECT * FROM games`);
-  return {
-    rows,
+//  const rows =  db.pool.query(`SELECT * FROM games`);
+//   return {
+//     rows,
+//   }
+
+// }
+
+const games = (req, res) => {
+  db.pool.query(`SELECT * FROM games`, (err,result)=> {
+    if(err) {
+      throw err
   }
-
+  res.status(200).json(results.rows)
+});
 }
 
 async function getGameCategories() {
@@ -91,12 +94,13 @@ async function setScore(gameid, score) {
 }
 
 module.exports = {
-  getGames,
-  getGameCategories,
-  getCategoryClues,
-  getClue,
-  updateClue,
-  resetClues,
-  setScore,
-  getAllClues,
+  games
+  // getGames,
+  // getGameCategories,
+  // getCategoryClues,
+  // getClue,
+  // updateClue,
+  // resetClues,
+  // setScore,
+  // getAllClues,
 };

@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 3000;
 
 const cors = require("cors");
 const gameMethodsRouter = require("./routes/gameRoutes");
+const gameMethods = require("./services/gameMethods");
 
 app.use(express.json());
 app.use(
@@ -29,8 +30,8 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use('/',gameMethodsRouter)
-app.use('/api/games',gameMethodsRouter);
+
+app.get('/api/games', gameMethods.games);
 
 
 // app.use(gameMethodsRouter.router0);
