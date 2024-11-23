@@ -1,7 +1,7 @@
 const express = require("express");
 const gameMethods = require("../services/gameMethods");
 // const app = express();
-
+import axios from 'axios';
 /*have to have express.Router() for each http call*/
 const router0 = express.Router();
 const router1 = express.Router();
@@ -19,7 +19,7 @@ router0.get("/", async function (req, res, next) {
     res.json("router0 endpoint message");
   } catch (err){
     if(err) {
-      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "get router 0 failed" }); // 500
+      return res.status(axios.HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "get router 0 failed" }); // 500
     }
   }
 });
@@ -32,7 +32,7 @@ router8.get("/api/games", async function (req, res, next) {
     res.json(data.rows.rows[0]);
   } catch (err){
     if(err) {
-      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "get games query failed" }); // 500
+      return res.status(axios.HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "get games query failed" }); // 500
     }
   }
   // res.end();
@@ -45,7 +45,7 @@ router1.get("/api/game-categories", async function (req, res, next) {
     res.json(data.rows.rows);
   } catch (err){
     if(err) {
-      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "get categories query failed" }); // 500
+      return res.status(axios.HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "get categories query failed" }); // 500
     }
   }
 });
@@ -57,7 +57,7 @@ router3.get("/api/allclues", async function (req, res, next) {
     res.json(data.rows.rows[0]);
   } catch (err){
     if(err) {
-      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "get all clues query failed" }); // 500
+      return res.status(axios.HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "get all clues query failed" }); // 500
     }
   }
   // res.end();
@@ -74,7 +74,7 @@ router2.get("/api/category-clues/:catid", async function (req, res, next) {
     res.json(data.rows.rows);
   } catch (err){
     if(err) {
-      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "get clues by category id failed" }); // 500
+      return res.status(axios.HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "get clues by category id failed" }); // 500
     }
   }
   // res.end();
@@ -90,7 +90,7 @@ router4.get("/api/category-clue/:clue_id", async function (req, res, next) {
     res.json(data.rows.rows[0]);
   } catch (err){
     if(err) {
-      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "get clue by clue id query failed" }); // 500
+      return res.status(axios.HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "get clue by clue id query failed" }); // 500
     }
   }
   // res.end();
@@ -107,7 +107,7 @@ router5.put(
       res.json(data.rows.rows[0]);
     } catch (err){
       if(err) {
-        return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "Update clue by clue id with answer correct boolean result query failed" }); // 500
+        return res.status(axios.HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "Update clue by clue id with answer correct boolean result query failed" }); // 500
       }
     }
     // res.end();
@@ -121,7 +121,7 @@ router6.put("/api/category-clue/newgame", async function (req, res, next) {
     res.json(data.rows.rows[0]);
   } catch (err){
     if(err) {
-      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "reset clues query failed" }); // 500
+      return res.status(axios.HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "reset clues query failed" }); // 500
     }
   }
   // res.end();
@@ -138,7 +138,7 @@ router7.put("/api/game/:gameid&:score", async function (req, res, next) {
     res.json(data.rows.rows);
   } catch (err){
     if(err) {
-      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "update score query failed" }); // 500
+      return res.status(axios.HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "update score query failed" }); // 500
     }
   }
   // res.end();
