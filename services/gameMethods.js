@@ -12,9 +12,9 @@ const db = require("../postgres-config");
 
 const games = (req, res) => {
   db.pool.query(`SELECT * FROM games`, (err,result)=> {
-    if(err) {
-      throw err
-  }
+  //   if(err) {
+  //     throw err
+  // }
   res.status(200).json(result.rows)
 });
 }
