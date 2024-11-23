@@ -5,7 +5,9 @@ const client = require("../heroku-config-postgres");
 
 async function getGames() {
   const rows = await client.query("SELECT * FROM games");
-  return rows;
+  return {
+    rows,
+  }
 };
 
 
