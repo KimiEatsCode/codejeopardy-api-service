@@ -6,7 +6,7 @@ let app = express();
 const PORT = process.env.PORT || 3000;
 
 const cors = require("cors");
-const gameMethodsRouter = require("./routes/gameRoutes");
+const gameMethodsRoutes = require("./routes/gameRoutes");
 
 app.use(express.json());
 app.use(
@@ -20,7 +20,7 @@ app.use(function (req, res, next) {
   res.header(
     "Access-Control-Allow-Origin",
     "localhost:3000", "*"
-  ); 
+  );
   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
   res.header(
     "Access-Control-Allow-Headers",
@@ -29,15 +29,19 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(gameMethodsRouter.router0);
-app.use(gameMethodsRouter.router1);
-app.use(gameMethodsRouter.router2);
-app.use(gameMethodsRouter.router3);
-app.use(gameMethodsRouter.router4);
-app.use(gameMethodsRouter.router5);
-app.use(gameMethodsRouter.router6);
-app.use(gameMethodsRouter.router7);
-app.use(gameMethodsRouter.router8);
+app.use('/', gameMethodsRoutes)
+app.use('/api/games', gameMethodsRoutes);
+
+
+// app.use(gameMethodsRouter.router0);
+// app.use(gameMethodsRouter.router1);
+// app.use(gameMethodsRouter.router2);
+// app.use(gameMethodsRouter.router3);
+// app.use(gameMethodsRouter.router4);
+// app.use(gameMethodsRouter.router5);
+// app.use(gameMethodsRouter.router6);
+// app.use(gameMethodsRouter.router7);
+// app.use(gameMethodsRouter.router8);
 
 
 app.listen(PORT, () => {
