@@ -2,16 +2,13 @@ const db = require("../postgres-config");
 const pg = require("pg");
 
 const express = require("express");
-let app = express();
 
 const dotenv = require('dotenv')
 dotenv.config({ path: "./config.env" });
-// dotenv.config();
 
 
 async function getGames() {
-  // const client = await pool.connect();
-  // console.log(client + " client ****");
+
   try { const rows = await db.pool.query(`SELECT * FROM games`);
   return {
     rows,
@@ -24,70 +21,108 @@ async function getGames() {
 }
 
 async function getGameCategories() {
-  const client = await pool.connect();
-  const rows = await pool.query(`SELECT * FROM categories`);
+  try {
+    const rows = await db.pool.query(`SELECT * FROM categories`);
 
-  return {
-    rows,
-  };
+    return {
+      rows,
+    }
+  } catch (err){
+    if(err) {
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "get categories query failed" }); // 500
+    }
+  }
 }
 
 async function getCategoryClues(catid) {
-  const client = await pool.connect();
-  const rows = await pool.query(
+  try { const rows = await db.pool.query(
     `SELECT * FROM clues WHERE category_id = ${catid} ORDER BY value ASC`
   );
   return {
-    rows,
-  };
+    rows
+  }
+} catch (err){
+  if(err) {
+    return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "get clue by id query failed" }); // 500
+  }
+}
+  
 }
 ``;
 
 async function getAllClues() {
-  const client = await pool.connect();
-  const rows = await pool.query(`SELECT * FROM clues`);
-  console.log("getAllClues  " + rows);
+try {
+  const rows = await db.pool.query(`SELECT * FROM clues`);
   return {
     rows,
-  };
+  }
+
+} catch (err){
+  if(err) {
+    return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "get all clues query failed" }); // 500
+  }
+}
 }
 
 async function getClue(id) {
-  const client = await pool.connect();
-  const rows = await pool.query(`SELECT * FROM clues WHERE clue_id = ${id}`);
+try {
+  const rows = await db.pool.query(`SELECT * FROM clues WHERE clue_id = ${id}`);
   return {
     rows,
-  };
+} 
+} catch (err){
+  if(err) {
+    return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "get clue id query failed" }); // 500
+  }
+}
+  
 }
 
 async function updateClue(id, answeredClue) {
-  const client = await pool.connect();
-  const rows = await pool.query(
+ try {
+  const rows = await db.pool.query(
     `UPDATE clues SET answered = ${answeredClue} WHERE clue_id= ${id}`
   );
-  console.log("single clue updateClue" + JSON.stringify(answeredClue));
   return {
     rows,
   };
+ } catch (err){
+    if(err) {
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "update clue query failed" }); // 500
+    }
+  }
+ 
 }
 
 async function resetClues() {
-  const client = await pool.connect();
-  const rows = await pool.query(`UPDATE clues SET answered = null
-  `);
-  return {
-    rows,
-  };
+  try {
+    const rows = await db.pool.query(`UPDATE clues SET answered = null
+      `);
+      return {
+        rows,
+      };
+    } catch (err){
+      if(err) {
+        return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "reset clues query failed" }); // 500
+      }
+    }
+ 
 }
 
 async function setScore(gameid, score) {
-  const client = await pool.connect();
-  const rows = await pool.query(
+ try {
+  const rows = await db.pool.query(
     `UPDATE games SET game_score = ${score} WHERE id=${gameid}`
   );
   return {
     rows,
   };
+} catch (err){
+  if(err) {
+    return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "set score query failed" }); // 500
+  }
+}
+
 }
 
 module.exports = {
