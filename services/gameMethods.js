@@ -15,7 +15,7 @@ const games = (req, res) => {
   //   if(err) {
   //     throw err
   // }
-  res.status(200).json(result.data)
+  res.json(result.rows[0])
 });
 }
 
