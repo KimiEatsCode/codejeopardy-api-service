@@ -1,4 +1,4 @@
-const pool = require("../config");
+// const pool = require("../config");
 const pg = require("pg");
 const dotenv = require("dotenv");
 // const mysql = require("mysql2");
