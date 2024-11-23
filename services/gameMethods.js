@@ -3,7 +3,7 @@ const client =require("../heroku-config-postgres");
 
 // async function getGames() {
 
-//  const rows =  db.pool.query(`SELECT * FROM games`);
+//  const rows =  client.query(`SELECT * FROM games`);
 //   return {
 //     rows,
 //   }
@@ -20,8 +20,8 @@ const test =(req, res) => {
 });
 }
 
-const games = (req, res) => {
-  db.pool.query("SELECT * FROM games", (err,result)=> {
+async function getGames() {
+  client.query("SELECT * FROM games", (err,result)=> {
   //   if(err) {
   //     throw err
   // }
@@ -31,7 +31,7 @@ const games = (req, res) => {
 
 async function getGameCategories() {
 
-    const rows = await db.pool.query(`SELECT * FROM categories`);
+    const rows = await client.query(`SELECT * FROM categories`);
 
     return {
       rows,
@@ -42,7 +42,7 @@ async function getGameCategories() {
 
 async function getAllClues() {
 
-  const rows = await db.pool.query(`SELECT * FROM clues`);
+  const rows = await client.query(`SELECT * FROM clues`);
   return {
     rows,
   }
@@ -50,7 +50,7 @@ async function getAllClues() {
 
 async function getCategoryClues(catid) {
 
-    const rows = await db.pool.query(
+    const rows = await client.query(
     `SELECT * FROM clues WHERE category_id = ${catid} ORDER BY value ASC`
   );
   return {
@@ -63,7 +63,7 @@ async function getCategoryClues(catid) {
 
 async function getClue(id) {
 
-  const rows = await db.pool.query(`SELECT * FROM clues WHERE clue_id = ${id}`);
+  const rows = await client.query(`SELECT * FROM clues WHERE clue_id = ${id}`);
   return {
     rows,
 }
@@ -73,7 +73,7 @@ async function getClue(id) {
 
 async function updateClue(id, answeredClue) {
 
-  const rows = await db.pool.query(
+  const rows = await client.query(
     `UPDATE clues SET answered = ${answeredClue} WHERE clue_id= ${id}`
   );
   return {
@@ -84,7 +84,7 @@ async function updateClue(id, answeredClue) {
 
 async function resetClues() {
 
-    const rows = await db.pool.query(`UPDATE clues SET answered = null
+    const rows = await client.query(`UPDATE clues SET answered = null
       `);
       return {
         rows,
@@ -94,7 +94,7 @@ async function resetClues() {
 
 async function setScore(gameid, score) {
 
-  const rows = await db.pool.query(
+  const rows = await client.query(
     `UPDATE games SET game_score = ${score} WHERE id=${gameid}`
   );
   return {
@@ -105,13 +105,13 @@ async function setScore(gameid, score) {
 
 module.exports = {
   games,
-  test
-  // getGames,
-  // getGameCategories,
-  // getCategoryClues,
-  // getClue,
-  // updateClue,
-  // resetClues,
-  // setScore,
-  // getAllClues,
+  test,
+  getGames,
+  getGameCategories,
+  getCategoryClues,
+  getClue,
+  updateClue,
+  resetClues,
+  setScore,
+  getAllClues,
 };

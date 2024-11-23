@@ -28,19 +28,19 @@ app.use(function (req, res, next) {
   );
   next();
 });
-app.get('/', gameMethods.test);
-app.get('/api/games', gameMethods.games);
+// app.get('/', gameMethods.test);
+// app.get('/api/games', gameMethods.games);
 
 
-// app.use(gameMethodsRouter.router0);
-// app.use(gameMethodsRouter.router1);
-// app.use(gameMethodsRouter.router2);
-// app.use(gameMethodsRouter.router3);
-// app.use(gameMethodsRouter.router4);
-// app.use(gameMethodsRouter.router5);
-// app.use(gameMethodsRouter.router6);
-// app.use(gameMethodsRouter.router7);
-// app.use(gameMethodsRouter.router8);
+app.use(gameMethodsRouter.router0);
+app.use(gameMethodsRouter.router1);
+app.use(gameMethodsRouter.router2);
+app.use(gameMethodsRouter.router3);
+app.use(gameMethodsRouter.router4);
+app.use(gameMethodsRouter.router5);
+app.use(gameMethodsRouter.router6);
+app.use(gameMethodsRouter.router7);
+app.use(gameMethodsRouter.router8);
 
 
 app.listen(PORT, () => {
