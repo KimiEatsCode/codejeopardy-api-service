@@ -1,7 +1,7 @@
 const express = require("express");
 const gameMethods = require("../services/gameMethods");
 // const app = express();
-import axios from 'axios';
+
 /*have to have express.Router() for each http call*/
 const router0 = express.Router();
 const router1 = express.Router();
@@ -17,10 +17,8 @@ const router8 = express.Router();
 router0.get("/", async function (req, res, next) {
   try {
     res.json("router0 endpoint message");
-  } catch (err){
-    if(err) {
-      return res.status(axios.HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "get router 0 failed" }); // 500
-    }
+  } catch (error) {
+    return res.status(500).json({ error: 'Internal Server Error for router 0' });
   }
 });
 
@@ -30,11 +28,10 @@ router8.get("/api/games", async function (req, res, next) {
     const data = await gameMethods.getGames();
     console.log("get games " + JSON.stringify(data.rows.rows[0]));
     res.json(data.rows.rows[0]);
-  } catch (err){
-    if(err) {
-      return res.status(axios.HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "get games query failed" }); // 500
-    }
+  } catch (error) {
+    return res.status(500).json({ error: 'get games query failed Internal Server Error' });
   }
+
   // res.end();
 });
 
@@ -43,11 +40,10 @@ router1.get("/api/game-categories", async function (req, res, next) {
   try {
     const data = await gameMethods.getGameCategories();
     res.json(data.rows.rows);
-  } catch (err){
-    if(err) {
-      return res.status(axios.HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "get categories query failed" }); // 500
-    }
+  } catch (error) {
+    return res.status(500).json({ error: "get categories query failed"});
   }
+
 });
 
 //GET all clues
@@ -55,10 +51,8 @@ router3.get("/api/allclues", async function (req, res, next) {
   try {
     const data = await gameMethods.getAllClues();
     res.json(data.rows.rows[0]);
-  } catch (err){
-    if(err) {
-      return res.status(axios.HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "get all clues query failed" }); // 500
-    }
+  } catch (error) {
+    return res.status(500).json({ error: "get all clues query failed" });
   }
   // res.end();
 });
@@ -72,11 +66,10 @@ router2.get("/api/category-clues/:catid", async function (req, res, next) {
     const data = await gameMethods.getCategoryClues(catid);
     console.log("category clues data " + data.rows.rows[0]);
     res.json(data.rows.rows);
-  } catch (err){
-    if(err) {
-      return res.status(axios.HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "get clues by category id failed" }); // 500
-    }
+  } catch (error) {
+    return res.status(500).json({ error: "get clues by category id failed" });
   }
+
   // res.end();
 });
 
@@ -88,11 +81,10 @@ router4.get("/api/category-clue/:clue_id", async function (req, res, next) {
     console.log(id);
     const data = await gameMethods.getClue(id);
     res.json(data.rows.rows[0]);
-  } catch (err){
-    if(err) {
-      return res.status(axios.HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "get clue by clue id query failed" }); // 500
-    }
+  } catch (error) {
+    return res.status(500).json({ error: "get clue by clue id query failed"  });
   }
+
   // res.end();
 });
 
@@ -105,10 +97,8 @@ router5.put(
       let answeredCorrect = req.params.answeredCorrect;
       const data = await gameMethods.updateClue(id, answeredCorrect);
       res.json(data.rows.rows[0]);
-    } catch (err){
-      if(err) {
-        return res.status(axios.HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "Update clue by clue id with answer correct boolean result query failed" }); // 500
-      }
+    } catch (error) {
+      return res.status(500).json({ error: "Update clue by clue id with answer correct boolean result query failed" });
     }
     // res.end();
   }
@@ -136,10 +126,8 @@ router7.put("/api/game/:gameid&:score", async function (req, res, next) {
     console.log("set game score " + score + "gameid " + gameid);
     const data = await gameMethods.setScore(gameid, score);
     res.json(data.rows.rows);
-  } catch (err){
-    if(err) {
-      return res.status(axios.HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "update score query failed" }); // 500
-    }
+  } catch (error) {
+    return res.status(500).json({ error: "update score query failed"});
   }
   // res.end();
 });
