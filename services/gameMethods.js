@@ -3,9 +3,8 @@ const client = require("../heroku-config-postgres");
 
 
 
-
-const getGames = (req, res) => {
-  const rows = client.query("SELECT * FROM games");
+async function getGames() {
+  const rows = await client.query("SELECT * FROM games");
   return rows;
 };
 
@@ -69,7 +68,6 @@ async function setScore(gameid, score) {
 }
 
 module.exports = {
-
   getGames,
   getGameCategories,
   getCategoryClues,

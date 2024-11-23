@@ -28,7 +28,6 @@ router0.get("/", async function (req, res, next) {
 router8.get("/api/games", async function (req, res, next) {
   try {
     const data =  gameMethods.getGames();
-    console.log('game' + data)
     res.json(data.rows.rows);
   } catch (error) {
     return res.status(500).json({ error: `get games query failed Internal Server Error` });
@@ -55,7 +54,7 @@ router2.get("/api/category-clues/:catid", async function (req, res, next) {
     let catid = req.params.catid;
 
     const data = await gameMethods.getCategoryClues(catid);
-    console.log("category clues data " + data.rows.rows[0]);
+    console.log("category clues data " + data.rows.rows);
     res.json(data.rows.rows);
   } catch (error) {
     return res.status(500).json({ error: "get clues by category id failed" });
@@ -69,7 +68,7 @@ router2.get("/api/category-clues/:catid", async function (req, res, next) {
 router3.get("/api/allclues", async function (req, res, next) {
   try {
     const data = await gameMethods.getAllClues();
-    res.json(data.rows.rows[0]);
+    res.json(data.rows.rows);
   } catch (error) {
     return res.status(500).json({ error: "get all clues query failed" });
   }
@@ -84,7 +83,7 @@ router4.get("/api/category-clue/:clue_id", async function (req, res, next) {
     let id = req.params.clue_id;
     console.log(id);
     const data = await gameMethods.getClue(id);
-    res.json(data.rows.rows[0]);
+    res.json(data.rows.rows);
   } catch (error) {
     return res.status(500).json({ error: "get clue by clue id query failed"  });
   }
@@ -100,7 +99,7 @@ router5.put(
       let id = req.params.clueid;
       let answeredCorrect = req.params.answeredCorrect;
       const data = await gameMethods.updateClue(id, answeredCorrect);
-      res.json(data.rows.rows[0]);
+      res.json(data.rows.rows);
     } catch (error) {
       return res.status(500).json({ error:`Update clue by clue id with answer correct boolean result query failed`  });
     }
@@ -112,7 +111,7 @@ router5.put(
 router6.put("/api/category-clue/newgame", async function (req, res, next) {
   try {
     const data = await gameMethods.resetClues();
-    res.json(data.rows.rows[0]);
+    res.json(data.rows.rows);
   } catch (err){
     if(err) {
       return res.status(axios.HttpStatus.INTERNAL_SERVER_ERROR).send({ error: err, message: "reset clues query failed" }); // 500
