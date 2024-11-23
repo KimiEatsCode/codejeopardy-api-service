@@ -20,14 +20,24 @@ const test =(req, res) => {
 });
 }
 
-async function getGames() {
-  client.query("SELECT * FROM games", (err,result)=> {
-  //   if(err) {
-  //     throw err
-  // }
-  res.json(result.rows[0])
+const getGames =(req, res) => {
+  client.query('SELECT * FROM games', (err, res) => {
+ if (err) throw err;
+ for (let row of res.rows) {
+   console.log(JSON.stringify(row));
+ }
+ client.end();
 });
 }
+
+// async function getGames() {
+//   client.query("SELECT * FROM games", (err,result)=> {
+//   //   if(err) {
+//   //     throw err
+//   // }
+//   res.json(result.rows[0])
+// });
+// }
 
 async function getGameCategories() {
 

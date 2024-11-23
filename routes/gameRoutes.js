@@ -18,7 +18,8 @@ const router8 = express.Router();
 /* GET welcome message*/
 router0.get("/", async function (req, res, next) {
   try {
-    res.json("router0 endpoint message");
+    const data = await gameMethods.getGames();
+    res.json(data.rows.rows);
   } catch (error) {
     return res.status(500).json({ error: 'Internal Server Error for router 0' });
   }
