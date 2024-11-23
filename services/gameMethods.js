@@ -28,6 +28,7 @@ const getGames =(req, res) => {
    console.log(row)
  }
  client.end();
+ return row;
 });
 }
 
