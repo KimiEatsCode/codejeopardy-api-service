@@ -138,7 +138,7 @@ router8.get("/api/games", async function (req, res, next) {
 
 
 // module.exports =   router;
-
+module.exports =
 {
   router0,
   router1,
