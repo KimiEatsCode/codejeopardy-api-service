@@ -3,7 +3,7 @@ let app = express();
 const dotenv = require("dotenv");
 // dotenv.config({ path: "./config.env" });
 dotenv.config();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 const cors = require("cors");
 const gameMethodsRouter = require("./routes/gameRoutes");
