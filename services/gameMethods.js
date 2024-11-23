@@ -25,10 +25,10 @@ const getGames =(req, res) => {
  if (err) throw err;
  const data = [];
  for (let row of res.rows) {
-   console.log(row)
+   data = row;
  }
  client.end();
- return row;
+ return data;
 });
 }
 
