@@ -11,7 +11,7 @@ const client =require("../heroku-config-postgres");
 // }
 
 const test =(req, res) => {
-   client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+   client.query('SELECT * FROM games', (err, res) => {
   if (err) throw err;
   for (let row of res.rows) {
     console.log(JSON.stringify(row));
