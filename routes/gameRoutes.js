@@ -27,9 +27,9 @@ router8.get("/api/games", async function (req, res, next) {
   try {
     const data = await gameMethods.getGames();
     console.log("get games " + JSON.stringify(data.rows.rows[0]));
-    res.json(data.rows.rows[0]);
+    // res.json(data.rows.rows[0]);
   } catch (error) {
-    return res.status(500).json({ error: `${data} - get games query failed Internal Server Error` });
+    return res.status(500).json({ error: `get games query failed Internal Server Error` });
   }
 
   // res.end();
