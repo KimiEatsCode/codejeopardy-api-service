@@ -28,7 +28,7 @@ app.use(function (req, res, next) {
   );
   next();
 });
-app.get('/', gameMethods.games);
+app.get('/', gameMethods.test);
 app.get('/api/games', gameMethods.games);
 
 

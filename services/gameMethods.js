@@ -1,5 +1,5 @@
 const db = require("../postgres-config");
-
+const client =require("../heroku-config-postgres");
 
 // async function getGames() {
 
@@ -9,6 +9,16 @@ const db = require("../postgres-config");
 //   }
 
 // }
+
+const test =(req, res) => {
+   client.query('SELECT table_schema,table_name FROM information_schema.tables;', (err, res) => {
+  if (err) throw err;
+  for (let row of res.rows) {
+    console.log(JSON.stringify(row));
+  }
+  client.end();
+});
+}
 
 const games = (req, res) => {
   db.pool.query("SELECT * FROM games", (err,result)=> {
@@ -94,7 +104,8 @@ async function setScore(gameid, score) {
 }
 
 module.exports = {
-  games
+  games,
+  test
   // getGames,
   // getGameCategories,
   // getCategoryClues,
