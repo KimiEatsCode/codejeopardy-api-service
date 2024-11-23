@@ -104,7 +104,6 @@ async function setScore(gameid, score) {
 }
 
 module.exports = {
-  games,
   test,
   getGames,
   getGameCategories,
