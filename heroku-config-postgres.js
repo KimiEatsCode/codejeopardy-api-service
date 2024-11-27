@@ -1,10 +1,15 @@
-const { Client } = require('pg');
-require('dotenv').config();
+require("dotenv").config({ path: "config.env" });
+const { Client } = require("pg");
+
 const client = new Client({
-  connectionString: process.env.DATABASE_URL,
+  // USERNAME:process.env.USERNAME,
+  // PASSWORD:process.env.PASSWORD,
+  // HOST:process.env.HOST,
+  // DATABASE:process.env.DATABASE,
+  connectionString: process.env.connectionString,
   ssl: {
-    rejectUnauthorized: false
-  }
+    rejectUnauthorized: false,
+  },
 });
 
 client.connect();

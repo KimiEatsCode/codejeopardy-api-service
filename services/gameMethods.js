@@ -1,4 +1,4 @@
-const db = require("../postgres-config");
+
 const client = require("../heroku-config-postgres");
 
 
