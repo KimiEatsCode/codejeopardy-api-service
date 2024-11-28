@@ -62,7 +62,6 @@ router2.get("/api/category-clues/:catid", async function (req, res, next) {
   } catch (error) {
     return res.status(500).json({ error: "get clues by category id failed" });
   }
-
   // res.end();
 });
 

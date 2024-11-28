@@ -2,14 +2,12 @@
 const client = require("../heroku-config-postgres");
 
 
-
 async function getGames() {
   const rows = await client.query("SELECT * FROM games");
   return {
     rows,
   }
 };
-
 
 async function getGameCategories() {
   const rows = await client.query(`SELECT * FROM categories`);
