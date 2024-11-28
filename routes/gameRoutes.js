@@ -77,9 +77,7 @@ router1.get("/api/game-categories", async function (req, res, next) {
 
 /* GET all category clues in a specific category */
 router2.get(
-  "/api/category-clues/:catid",
-  
-  async function (req, res, next) {
+  "/api/category-clues/:catid",async function (req, res, next) {
     try {
       let catid = req.params.catid;
 
@@ -94,7 +92,7 @@ router2.get(
 );
 
 //GET all clues
-router3.get("/api/allclues", async function (req, res, next) {
+router3.get("/api/allclues",async function (req, res, next) {
   try {
     const data = await gameMethods.getAllClues();
     res.json(data.rows.rows);
@@ -158,7 +156,7 @@ router6.put(
 
 /* UPDATE game score*/
 router7.put(
-  "/api/game/:gameid&:score", async function (req, res, next) {
+  "/api/game/:gameid&:score",async function (req, res, next) {
     try {
       let gameid = req.params.gameid;
       let score = req.params.score;
