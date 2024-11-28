@@ -15,6 +15,7 @@ app.use(
   })
 );
 
+
 app.use(gameMethodsRouter.router0);
 app.use(gameMethodsRouter.router1);
 app.use(gameMethodsRouter.router2);
@@ -25,12 +26,10 @@ app.use(gameMethodsRouter.router6);
 app.use(gameMethodsRouter.router7);
 app.use(gameMethodsRouter.router8);
 
-// app.use(
-//   cors({
-//     origin: "*",
-//     credentials: true,
-//   })
-// );
+app.use(cors({
+  origin: ['https://codejeo-7137663a4c65.herokuapp.com/api/*']
+}));
+
 
 // app.use(function (req, res, next) {
 //   res.header("Access-Control-Allow-Origin", "*");
