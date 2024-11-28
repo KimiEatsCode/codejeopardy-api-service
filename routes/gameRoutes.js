@@ -1,12 +1,12 @@
 const express = require("express");
 const gameMethods = require("../services/gameMethods");
-// const cors = require("cors");
-// const app = express();
+const cors = require("cors");
+const app = express();
 
-// app.use(cors());
-// app.use(cors({
-//   origin: ['https://codejeo-7137663a4c65.herokuapp.com/api/*']
-// }));
+app.use(cors());
+app.use(cors({
+  origin: ['https://codejeo-7137663a4c65.herokuapp.com/api/*']
+}));
 
 /*have to have express.Router() for each http call*/
 const router0 = express.Router();
