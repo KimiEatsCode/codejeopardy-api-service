@@ -2,14 +2,19 @@ const express = require("express");
 const gameMethods = require("../services/gameMethods");
 const cors = require("cors");
 const app = express();
-
+app.options("*", cors());
 app.use(cors());
-app.use(cors({
-  origin: ['https://codejeo-7137663a4c65.herokuapp.com/api/*']
-}));
+app.use(
+  cors({
+    origin: ["https://codejeo-7137663a4c65.herokuapp.com/api/*"],
+  })
+);
 
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://codejeo-7137663a4c65.herokuapp.com/*");
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://codejeo-7137663a4c65.herokuapp.com/*"
+  );
   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
   res.header(
     "Access-Control-Allow-Headers",
@@ -41,7 +46,7 @@ router0.get("/", async function (req, res, next) {
 });
 
 /* GET all games */
-router8.get("/api/games", async function (req, res, next) {
+router8.get("/api/games", cors(), async function (req, res, next) {
   try {
     const data = await gameMethods.getGames();
     res.json(data.rows.rows);
