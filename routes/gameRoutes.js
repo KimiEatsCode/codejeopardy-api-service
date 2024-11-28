@@ -165,8 +165,7 @@ router6.put(
 
 /* UPDATE game score*/
 router7.put(
-  "/api/game/:gameid&:score",
-  async function (req, res, next) {
+  "/api/game/:gameid&:score", async function (req, res, next) {
     try {
       let gameid = req.params.gameid;
       let score = req.params.score;
