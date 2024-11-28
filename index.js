@@ -27,7 +27,7 @@ app.use(gameMethodsRouter.router8);
 app.use(cors());
 
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "https://codejeo-frontend-0e4dcaeb89ec.herokuapp.com/*");
+  res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
   res.header(
     "Access-Control-Allow-Headers",
