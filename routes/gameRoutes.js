@@ -2,6 +2,9 @@ const express = require("express");
 const gameMethods = require("../services/gameMethods");
 const cors = require("cors");
 const app = express();
+
+express.Router.use(cors());
+
 app.options("*", cors());
 app.use(cors());
 app.use(
