@@ -38,7 +38,7 @@ const router7 = express.Router();
 const router8 = express.Router();
 
 /* GET welcome message*/
-router0.get("/", async function (req, res, next) {
+router0.get("/", cors(), async function (req, res, next) {
   try {
     res.json("router0 endpoint message");
   } catch (error) {
@@ -64,9 +64,7 @@ router8.get("/api/games", cors(), async function (req, res, next) {
 
 /* GET game categories. */
 router1.get(
-  "/api/game-categories",
-
-  async function (req, res, next) {
+  "/api/game-categories",cors(), async function (req, res, next) {
     try {
       const data = await gameMethods.getGameCategories();
       console.log("game categories router " + JSON.stringify(data.rows.rows));
@@ -78,10 +76,8 @@ router1.get(
 );
 
 /* GET all category clues in a specific category */
-router2.get(
-  "/api/category-clues/:catid",
-
-  async function (req, res, next) {
+router2.get( "/api/category-clues/:catid", cors(),
+async function (req, res, next) {
     try {
       let catid = req.params.catid;
 
@@ -96,7 +92,7 @@ router2.get(
 );
 
 //GET all clues
-router3.get("/api/allclues", async function (req, res, next) {
+router3.get("/api/allclues", cors(), async function (req, res, next) {
   try {
     const data = await gameMethods.getAllClues();
     res.json(data.rows.rows);
@@ -109,7 +105,7 @@ router3.get("/api/allclues", async function (req, res, next) {
 /* GET specific category clue based on clue id */
 router4.get(
   "/api/category-clue/:clue_id",
-
+  cors(),
   async function (req, res, next) {
     try {
       let id = req.params.clue_id;
@@ -130,6 +126,7 @@ router4.get(
 router5.put(
   "/api/category-clue/:clueid&:answeredCorrect",
 
+  cors(),
   async function (req, res, next) {
     try {
       let id = req.params.clueid;
@@ -147,8 +144,7 @@ router5.put(
 
 /* UPDATE answered to reset game to new game */
 router6.put(
-  "/api/category-clue/newgame",
-
+  "/api/category-clue/newgame", cors(),
   async function (req, res, next) {
     try {
       const data = await gameMethods.resetClues();
@@ -166,8 +162,7 @@ router6.put(
 
 /* UPDATE game score*/
 router7.put(
-  "/api/game/:gameid&:score",
-
+  "/api/game/:gameid&:score", cors(),
   async function (req, res, next) {
     try {
       let gameid = req.params.gameid;
