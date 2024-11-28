@@ -4,13 +4,7 @@ const cors = require('cors');
 // const app = express();
 
 var corsOptions = {
-  origin: function (origin, callback) {
-    // db.loadOrigins is an example call to load
-    // a list of origins from a backing database
-    db.loadOrigins(function (error, origins) {
-      callback(error, origins)
-    })
-  }
+  origin: ["https://codejeo-7137663a4c65.herokuapp.com/api/*"],
 }
 
 /*have to have express.Router() for each http call*/
