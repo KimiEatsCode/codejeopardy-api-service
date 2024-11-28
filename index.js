@@ -7,10 +7,12 @@ const PORT = process.env.PORT || 3000;
 
 const cors = require("cors");
 
-app.use(cors({
-  origin: ['*']
-}));
-
+app.use(
+  cors({
+    origin: ["*"],
+    credentials: true,
+  })
+);
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -31,7 +33,6 @@ app.use(
   })
 );
 
-
 app.use(gameMethodsRouter.router0);
 app.use(gameMethodsRouter.router1);
 app.use(gameMethodsRouter.router2);
@@ -41,7 +42,6 @@ app.use(gameMethodsRouter.router5);
 app.use(gameMethodsRouter.router6);
 app.use(gameMethodsRouter.router7);
 app.use(gameMethodsRouter.router8);
-
 
 app.listen(PORT, () => {
   console.log(`Example app listening at ${PORT}`);
