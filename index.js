@@ -4,7 +4,7 @@ require("dotenv").config({ path: "config.env" });
 
 const PORT = process.env.PORT || 3000;
 
-const cors = require("cors");
+// const cors = require("cors");
 const gameMethodsRouter = require("./routes/gameRoutes");
 
 app.use(express.json());
@@ -24,7 +24,7 @@ app.use(gameMethodsRouter.router6);
 app.use(gameMethodsRouter.router7);
 app.use(gameMethodsRouter.router8);
 
-app.use(cors());
+// app.use(cors());
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
