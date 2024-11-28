@@ -1,8 +1,17 @@
 const express = require("express");
 const gameMethods = require("../services/gameMethods");
+const cors = require('cors');
 // const app = express();
 
-// const router = express.Router()
+var corsOptions = {
+  origin: function (origin, callback) {
+    // db.loadOrigins is an example call to load
+    // a list of origins from a backing database
+    db.loadOrigins(function (error, origins) {
+      callback(error, origins)
+    })
+  }
+}
 
 /*have to have express.Router() for each http call*/
 const router0 = express.Router();
@@ -16,7 +25,7 @@ const router7 = express.Router();
 const router8 = express.Router();
 
 /* GET welcome message*/
-router0.get("/", async function (req, res, next) {
+router0.get("/", cors(corsOptions),async function (req, res, next) {
   try {
     res.json("router0 endpoint message");
   } catch (error) {
@@ -27,7 +36,7 @@ router0.get("/", async function (req, res, next) {
 });
 
 /* GET all games */
-router8.get("/api/games", async function (req, res, next) {
+router8.get("/api/games",cors(corsOptions), async function (req, res, next) {
   try {
     const data = await gameMethods.getGames();
     res.json(data.rows.rows);
@@ -41,7 +50,7 @@ router8.get("/api/games", async function (req, res, next) {
 });
 
 /* GET game categories. */
-router1.get("/api/game-categories", async function (req, res, next) {
+router1.get("/api/game-categories",cors(corsOptions), async function (req, res, next) {
   try {
     const data = await gameMethods.getGameCategories();
     console.log("game categories router " + JSON.stringify(data.rows.rows));
@@ -52,7 +61,7 @@ router1.get("/api/game-categories", async function (req, res, next) {
 });
 
 /* GET all category clues in a specific category */
-router2.get("/api/category-clues/:catid", async function (req, res, next) {
+router2.get("/api/category-clues/:catid", cors(corsOptions),async function (req, res, next) {
   try {
     let catid = req.params.catid;
 
@@ -77,7 +86,7 @@ router3.get("/api/allclues", async function (req, res, next) {
 });
 
 /* GET specific category clue based on clue id */
-router4.get("/api/category-clue/:clue_id", async function (req, res, next) {
+router4.get("/api/category-clue/:clue_id",cors(corsOptions), async function (req, res, next) {
   try {
     let id = req.params.clue_id;
     console.log(id);
@@ -92,7 +101,7 @@ router4.get("/api/category-clue/:clue_id", async function (req, res, next) {
 
 /* UPDATE answered clue id and answeredCorrect  */
 router5.put(
-  "/api/category-clue/:clueid&:answeredCorrect",
+  "/api/category-clue/:clueid&:answeredCorrect",cors(corsOptions),
   async function (req, res, next) {
     try {
       let id = req.params.clueid;
@@ -111,7 +120,7 @@ router5.put(
 );
 
 /* UPDATE answered to reset game to new game */
-router6.put("/api/category-clue/newgame", async function (req, res, next) {
+router6.put("/api/category-clue/newgame", cors(corsOptions),async function (req, res, next) {
   try {
     const data = await gameMethods.resetClues();
     res.json(data.rows.rows);
@@ -126,7 +135,7 @@ router6.put("/api/category-clue/newgame", async function (req, res, next) {
 });
 
 /* UPDATE game score*/
-router7.put("/api/game/:gameid&:score", async function (req, res, next) {
+router7.put("/api/game/:gameid&:score", cors(corsOptions),async function (req, res, next) {
   try {
     let gameid = req.params.gameid;
     let score = req.params.score;
