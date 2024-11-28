@@ -4,7 +4,7 @@ const cors = require('cors');
 // const app = express();
 
 var corsOptions = {
-  origin: ["https://codejeo-7137663a4c65.herokuapp.com/api/*"],
+  origin: ["https://codejeo-7137663a4c65.herokuapp.com/api/games"],
 }
 
 /*have to have express.Router() for each http call*/
