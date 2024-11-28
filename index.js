@@ -5,7 +5,22 @@ let app = express();
 require("dotenv").config();
 const PORT = process.env.PORT || 3000;
 
-// const cors = require("cors");
+const cors = require("cors");
+
+app.use(cors({
+  origin: ['https://codejeo-7137663a4c65.herokuapp.com/game-categories']
+}));
+
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "https://codejeo-7137663a4c65.herokuapp.com/game-categories");
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 const gameMethodsRouter = require("./routes/gameRoutes");
 
@@ -27,20 +42,6 @@ app.use(gameMethodsRouter.router6);
 app.use(gameMethodsRouter.router7);
 app.use(gameMethodsRouter.router8);
 
-// app.use(cors({
-//   origin: ['https://codejeo-7137663a4c65.herokuapp.com/*']
-// }));
-
-
-// app.use(function (req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "https://codejeo-7137663a4c65.herokuapp.com/*");
-//   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
-//   res.header(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content-Type, Accept"
-//   );
-//   next();
-// });
 
 app.listen(PORT, () => {
   console.log(`Example app listening at ${PORT}`);
