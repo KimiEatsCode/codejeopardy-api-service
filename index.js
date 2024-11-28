@@ -27,7 +27,7 @@ app.use(gameMethodsRouter.router7);
 app.use(gameMethodsRouter.router8);
 
 app.use(cors({
-  origin: ['https://codejeo-7137663a4c65.herokuapp.com/api/*']
+  origin: ['https://codejeo-7137663a4c65.herokuapp.com/*']
 }));
 
 
