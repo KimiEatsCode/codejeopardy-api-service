@@ -78,7 +78,7 @@ router1.get("/api/game-categories", async function (req, res, next) {
 /* GET all category clues in a specific category */
 router2.get(
   "/api/category-clues/:catid",
-  cors(),
+  
   async function (req, res, next) {
     try {
       let catid = req.params.catid;
@@ -107,7 +107,7 @@ router3.get("/api/allclues", async function (req, res, next) {
 /* GET specific category clue based on clue id */
 router4.get(
   "/api/category-clue/:clue_id",
-  cors(),
+
   async function (req, res, next) {
     try {
       let id = req.params.clue_id;
@@ -128,7 +128,7 @@ router4.get(
 router5.put(
   "/api/category-clue/:clueid&:answeredCorrect",
 
-  cors(),
+
   async function (req, res, next) {
     try {
       let id = req.params.clueid;
@@ -147,7 +147,7 @@ router5.put(
 /* UPDATE answered to reset game to new game */
 router6.put(
   "/api/category-clue/newgame",
-  cors(),
+
   async function (req, res, next) {
     try {
       const data = await gameMethods.resetClues();
