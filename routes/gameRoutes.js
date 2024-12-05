@@ -55,20 +55,6 @@ router0.get("/", async function (req, res, next) {
   }
 });
 
-/* GET all games */
-router8.get("/api/games", async function (req, res, next) {
-  try {
-    const data = await gameMethods.getGames();
-    res.json(data.rows.rows);
-  } catch (error) {
-    return res
-      .status(500)
-      .json({ error: `get games query failed Internal Server Error` });
-  }
-
-  // res.end();
-});
-
 /* GET game categories. */
 router1.get("/api/game-categories", async function (req, res, next) {
   try {
@@ -108,11 +94,11 @@ router3.get("/api/allclues", async function (req, res, next) {
 
 /* GET specific category clue based on clue id */
 // router4.get("/api/category-clue/:clue_id", async function (req, res, next) {
-router4.get("/api/category-clue/:clue_id", async function (req, res, next) {
+router4.get("/api/category-clue/:clueid", async function (req, res, next) {
   try {
-    let id = req.params.clue_id;
-    // console.log(id);
-    const data = await gameMethods.getClue(id);
+    let clueid = req.params.clueid;
+    const data = await gameMethods.getClue(clueid);
+    console.log("clue id gotten gameRoutes " + JSON.stringify(data));
     res.json(data.rows.rows);
   } catch (error) {
     return res.status(500).json({ error: "get clue by clue id query failed" });
@@ -124,13 +110,13 @@ router4.get("/api/category-clue/:clue_id", async function (req, res, next) {
 /* UPDATE answered clue id and answeredCorrect  */
 
 router5.patch(
-  "/api/category-clue/clueid/answeredCorrect",
+  "/api/category-clue/:clueid/:answeredCorrect",
   async function (req, res, next) {
     try {
-      let id = req.params.clueid;
+      let clueid = req.params.clueid;
       let answeredCorrect = req.params.answeredCorrect;
-      const data = await gameMethods.updateClue(id, answeredCorrect);
-      console.log(JSON.stringify(data))
+      const data = await gameMethods.updateClue(clueid, answeredCorrect);
+      console.log(JSON.stringify(data));
       res.json(data.rows.rows);
     } catch (error) {
       return res.status(500).json({
@@ -155,7 +141,7 @@ router6.get("/api/category-clue/newgame", async function (req, res, next) {
 });
 
 /* UPDATE game score*/
-router7.patch("/api/game/:gameid&score", async function (req, res, next) {
+router7.patch("/api/game/:gameid/:score", async function (req, res, next) {
   try {
     let gameid = req.params.gameid;
     let score = req.params.score;
@@ -164,6 +150,20 @@ router7.patch("/api/game/:gameid&score", async function (req, res, next) {
   } catch (error) {
     return res.status(500).json({ error: "update score query failed" });
   }
+  // res.end();
+});
+
+/* GET all games */
+router8.get("/api/games", async function (req, res, next) {
+  try {
+    const data = await gameMethods.getGames();
+    res.json(data.rows.rows);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: `get games query failed Internal Server Error` });
+  }
+
   // res.end();
 });
 
