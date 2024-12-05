@@ -1,27 +1,14 @@
-const db = require("../postgres-config");
 const client = require("../heroku-config-postgres");
 
-
-
-const test = (req, res) => {
-  client.query("SELECT * FROM games", (err, res) => {
-    if (err) throw err;
-    for (let row of res.rows) {
-      console.log(JSON.stringify(row));
-    }
-    client.end();
-  });
-};
-
-const getGames = (req, res) => {
-  const rows = client.query("SELECT * FROM games");
-  return rows;
-};
-
+async function getGames() {
+  const rows = await client.query("SELECT * FROM games");
+  return {
+    rows,
+  };
+}
 
 async function getGameCategories() {
   const rows = await client.query(`SELECT * FROM categories`);
-
   return {
     rows,
   };
@@ -61,7 +48,7 @@ async function updateClue(id, answeredClue) {
 }
 
 async function resetClues() {
-  const rows = await client.query(`UPDATE clues SET answered = null
+  const rows = await client.query(`UPDATE clues SET answered = NULL
       `);
   return {
     rows,
@@ -70,7 +57,7 @@ async function resetClues() {
 
 async function setScore(gameid, score) {
   const rows = await client.query(
-    `UPDATE games SET game_score = ${score} WHERE id=${gameid}`
+    `UPDATE games SET game_score = ${score} WHERE game_id=${gameid}`
   );
   return {
     rows,
@@ -78,7 +65,6 @@ async function setScore(gameid, score) {
 }
 
 module.exports = {
-  test,
   getGames,
   getGameCategories,
   getCategoryClues,
