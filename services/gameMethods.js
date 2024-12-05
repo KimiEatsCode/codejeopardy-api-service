@@ -38,9 +38,18 @@ async function getClue(id) {
   };
 }
 
-async function updateClue(id, answeredClue) {
+// async function updateClue(id, answeredClue) {
+//   const rows = await client.query(
+//     `UPDATE clues SET answered = ${answeredClue} WHERE clue_id= ${id}`
+//   );
+//   return {
+//     rows,
+//   };
+// }
+
+async function updateClue(id) {
   const rows = await client.query(
-    `UPDATE clues SET answered = ${answeredClue} WHERE clue_id= ${id}`
+    `UPDATE clues SET answered = NULL WHERE clue_id= ${id}`
   );
   return {
     rows,

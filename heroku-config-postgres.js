@@ -9,9 +9,9 @@ const client = new Client({
   // HOST:process.env.HOST,
   // DATABASE:process.env.DATABASE,
   connectionString: process.env.connectionString,
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  // ssl: {
+  //   rejectUnauthorized: false,
+  // },
 });
 
 client.connect();

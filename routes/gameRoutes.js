@@ -112,13 +112,16 @@ router4.get("/api/category-clue/:clue_id", async function (req, res, next) {
 });
 
 /* UPDATE answered clue id and answeredCorrect  */
-router5.put(
-  "/api/category-clue/:clueid&:answeredCorrect",
-  async function (req, res, next) {
+// router5.put(
+//   "/api/category-clue/:clueid/:answeredCorrect",
+//   async function (req, res, next) {
+  router5.put(
+    "/api/category-clue/:clueid",
+    async function (req, res, next) {
     try {
       let id = req.params.clueid;
-      let answeredCorrect = req.params.answeredCorrect;
-      const data = await gameMethods.updateClue(id, answeredCorrect);
+      //let answeredCorrect = req.params.answeredCorrect;
+      const data = await gameMethods.updateClue(id);
       res.json(data.rows.rows);
     } catch (error) {
       return res.status(500).json({
@@ -145,7 +148,7 @@ router6.put("/api/category-clue/newgame", async function (req, res, next) {
 });
 
 /* UPDATE game score*/
-router7.put("/api/game/:gameid&:score", async function (req, res, next) {
+router7.put("/api/game/:gameid/:score", async function (req, res, next) {
   try {
     let gameid = req.params.gameid;
     let score = req.params.score;
