@@ -1,8 +1,8 @@
 const express = require("express");
 let app = express();
 //use path for dev
-require("dotenv").config({ path: "config.env" });
-// require("dotenv").config();
+// require("dotenv").config({ path: "config.env" });
+require("dotenv").config();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -55,7 +55,6 @@ app.use(gameMethodsRouter.router5);
 app.use(gameMethodsRouter.router6);
 app.use(gameMethodsRouter.router7);
 app.use(gameMethodsRouter.router8);
-
 
 app.listen(PORT, () => {
   console.log(`Example app listening at ${PORT}`);
