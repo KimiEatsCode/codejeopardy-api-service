@@ -1,7 +1,7 @@
 {
   "name": "codejeo",
   "version": "1.0.0",
-  "description": "Web app to practice code questions and concepts",
+  "description": "Web app to practice code questions and programming concepts",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"

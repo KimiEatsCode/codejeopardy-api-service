@@ -7,8 +7,15 @@ async function getGames() {
   };
 }
 
-async function getGameCategories() {
-  const rows = await client.query(`SELECT * FROM categories`);
+async function getGameData(gameid) {
+  const rows = await client.query(`SELECT * FROM games WHERE game_id = ${gameid}`);
+  return {
+    rows,
+  };
+}
+
+async function getGameCategories(gameid) {
+  const rows = await client.query(`SELECT * FROM categories WHERE game_id = ${gameid}`);
   return {
     rows,
   };
@@ -73,4 +80,5 @@ module.exports = {
   resetClues,
   setScore,
   getAllClues,
+  getGameData,
 };
