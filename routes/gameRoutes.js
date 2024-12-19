@@ -172,7 +172,7 @@ router7.patch("/api/games/:gameid/:score", async function (req, res, next) {
 router8.get("/api/games", async function (req, res, next) {
   try {
     const data = await gameMethods.getGames();
-    res.json(data.rows.rows);
+    res.json(data.rows.rows[0]);
   } catch (error) {
     return res
       .status(500)
@@ -187,7 +187,7 @@ router9.get("/api/games/:gameid", async function (req, res, next) {
   try {
     let gameid = req.params.gameid;
     const data = await gameMethods.getGameData(gameid);
-    res.json(data.rows.rows);
+    res.json(data.rows.rows[0]);
   } catch (error) {
     return res
       .status(500)
