@@ -45,6 +45,7 @@ const router6 = express.Router({ mergeParams: true });
 const router7 = express.Router({ mergeParams: true });
 const router8 = express.Router({ mergeParams: true });
 const router9 = express.Router({ mergeParams: true });
+const router10 = express.Router({ mergeParams: true });
 
 /* GET welcome message*/
 router0.get("/", async function (req, res, next) {
@@ -76,7 +77,9 @@ router1.get("/api/games/:gameid/categories", async function (req, res, next) {
     // console.log("game categories router " + JSON.stringify(data.rows.rows));
     res.json(data.rows.rows);
   } catch (error) {
-    return res.status(500).json({ error: "get game categories by gameid query failed" });
+    return res
+      .status(500)
+      .json({ error: "get game categories by gameid query failed" });
   }
 });
 
@@ -108,18 +111,23 @@ router3.get("/api/allclues", async function (req, res, next) {
 
 /* GET specific category clue based on clue id */
 // router4.get("/api/category-clue/:clue_id", async function (req, res, next) {
-router4.get("/api/category-clues/allclues/:clueid", async function (req, res, next) {
-  try {
-    let clueid = req.params.clueid;
-    const data = await gameMethods.getClue(clueid);
-    console.log("get clue by clue id " + JSON.stringify(data.rows.rows));
-    res.json(data.rows.rows);
-  } catch (error) {
-    return res.status(500).json({ error: "get clue by clue id query failed" });
-  }
+router4.get(
+  "/api/category-clues/allclues/:clueid",
+  async function (req, res, next) {
+    try {
+      let clueid = req.params.clueid;
+      const data = await gameMethods.getClue(clueid);
+      console.log("get clue by clue id " + JSON.stringify(data.rows.rows));
+      res.json(data.rows.rows);
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ error: "get clue by clue id query failed" });
+    }
 
-  // res.end();
-});
+    // res.end();
+  }
+);
 
 /* UPDATE answered clue id and answeredCorrect  */
 
@@ -160,7 +168,7 @@ router7.patch("/api/games/:gameid/:score", async function (req, res, next) {
     let gameid = req.params.gameid;
     let score = req.params.score;
     const data = await gameMethods.setScore(gameid, score);
-    console.log("update clue from api with score " + data.rows.rows)
+    console.log("update game from api with score " + req.params.score);
     res.json(data.rows.rows);
   } catch (error) {
     return res.status(500).json({ error: "update score query failed" });
@@ -172,7 +180,7 @@ router7.patch("/api/games/:gameid/:score", async function (req, res, next) {
 router8.get("/api/games", async function (req, res, next) {
   try {
     const data = await gameMethods.getGames();
-    res.json(data.rows.rows[0]);
+    res.json(data.rows.rows);
   } catch (error) {
     return res
       .status(500)
@@ -191,13 +199,31 @@ router9.get("/api/games/:gameid", async function (req, res, next) {
   } catch (error) {
     return res
       .status(500)
-      .json({ error: `get game data by game id query failed Internal Server Error` });
+      .json({
+        error: `get game data by game id query failed Internal Server Error`,
+      });
   }
 
   // res.end();
-
-
 });
+
+/* UPDATE answered to reset game to new score */
+router10.patch(
+  "/api/category-clues/newscore/:gameid",
+  async function (req, res, next) {
+    try {
+      let gameid = req.params.gameid;
+      const data = await gameMethods.resetGameScore(gameid);
+      console.log("reset game score ")
+      res.json(data.rows.rows);
+    } catch (error) {
+      return res.status(500).json({
+        error: `UPDATE game score to 0 query failed`,
+      });
+    }
+    // res.end();
+  }
+);
 
 // module.exports =   router;
 module.exports = {
@@ -211,4 +237,5 @@ module.exports = {
   router7,
   router8,
   router9,
+  router10,
 };
