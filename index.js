@@ -1,12 +1,20 @@
 const express = require("express");
 let app = express();
 //use path for dev
+<<<<<<< HEAD
 // require("dotenv").config({ path: "config.env" });
 require("dotenv").config();
 const PORT = process.env.PORT || 3000;
 
 const cors = require("cors");
 
+=======
+require("dotenv").config({ path: "config.env" });
+// require("dotenv").config();
+const PORT = process.env.PORT || 3000;
+
+app.use(express.json());
+>>>>>>> origin/main
 app.use(
   cors({
     origin: ["*"],
@@ -14,6 +22,7 @@ app.use(
   })
 );
 
+<<<<<<< HEAD
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
@@ -32,6 +41,41 @@ app.use(
     extended: true,
   })
 );
+=======
+const cors = require("cors");
+
+// app.options("*", cors());
+
+// app.use(
+//   cors({
+//     origin: ["*"],
+//     credentials: true,
+//   })
+// );
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST, PATCH,DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  app.use(cors());
+  next();
+});
+
+// app.use(function (req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header(
+//     "Access-Control-Allow-Methods",
+//     "GET, PUT, PATCH, POST, DELETE, OPTIONS"
+//   );
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Origin, X-Requested-With, Content-Type, Accept"
+//   );
+//   next();
+// });
+
+const gameMethodsRouter = require("./routes/gameRoutes");
+>>>>>>> origin/main
 
 app.use(gameMethodsRouter.router0);
 app.use(gameMethodsRouter.router1);

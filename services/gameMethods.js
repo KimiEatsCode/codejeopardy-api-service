@@ -57,7 +57,7 @@ async function updateClue(id) {
 }
 
 async function resetClues() {
-  const rows = await client.query(`UPDATE clues SET answered = null
+  const rows = await client.query(`UPDATE clues SET answered = NULL
       `);
   return {
     rows,
@@ -66,7 +66,7 @@ async function resetClues() {
 
 async function setScore(gameid, score) {
   const rows = await client.query(
-    `UPDATE games SET game_score = ${score} WHERE id=${gameid}`
+    `UPDATE games SET game_score = ${score} WHERE game_id=${gameid}`
   );
   return {
     rows,
