@@ -117,7 +117,7 @@ router4.get(
     try {
       let clueid = req.params.clueid;
       const data = await gameMethods.getClue(clueid);
-      console.log("get clue by clue id " + JSON.stringify(data.rows.rows));
+      // console.log("get clue by clue id " + JSON.stringify(data.rows.rows));
       res.json(data.rows.rows);
     } catch (error) {
       return res
@@ -150,7 +150,7 @@ router5.patch(
 );
 
 /* UPDATE answered to reset game to new game */
-router6.get("/api/category-clues/newgame", async function (req, res, next) {
+router6.get("/api/games/newgame/:gameid", async function (req, res, next) {
   try {
     const data = await gameMethods.resetClues();
     res.json(data.rows.rows);
@@ -212,12 +212,14 @@ router10.patch(
   "/api/category-clues/newscore/:gameid",
   async function (req, res, next) {
     try {
+      console.log("reset game score " + res)
       let gameid = req.params.gameid;
       const data = await gameMethods.resetGameScore(gameid);
-      console.log("reset game score ")
+      console.log("reset game score " + data)
       res.json(data.rows.rows);
     } catch (error) {
       return res.status(500).json({
+
         error: `UPDATE game score to 0 query failed`,
       });
     }
