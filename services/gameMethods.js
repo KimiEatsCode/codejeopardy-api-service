@@ -54,8 +54,10 @@ async function updateClue(id, answeredClue) {
   };
 }
 
+// async function resetClues(gameid) {
+//   const rows = await client.query(`UPDATE clues SET answered = 0 WHERE game_id = ${gameid}
 async function resetClues(gameid) {
-  const rows = await client.query(`UPDATE clues SET answered = NULL WHERE game_id = ${gameid}
+  const rows = await client.query(`UPDATE clues SET answered = 0 
       `);
   return {
     rows,

@@ -150,9 +150,10 @@ router5.patch(
 );
 
 /* UPDATE answered to reset game to new game */
-router6.get("/api/games/newgame/:gameid", async function (req, res, next) {
+router6.patch("/api/games/newgame/:gameid", async function (req, res, next) {
   try {
-    const data = await gameMethods.resetClues();
+    let gameid = req.params.gameid;
+    const data = await gameMethods.resetClues(gameid);
     res.json(data.rows.rows);
   } catch (error) {
     return res.status(500).json({
