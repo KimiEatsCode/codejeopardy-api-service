@@ -45,6 +45,7 @@ app.use(gameMethodsRouter.router7);
 app.use(gameMethodsRouter.router8);
 app.use(gameMethodsRouter.router9);
 app.use(gameMethodsRouter.router10);
+app.use(gameMethodsRouter.router11);
 
 app.listen(PORT, () => {
   console.log(`Example app listening at ${PORT}`);

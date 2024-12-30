@@ -1,5 +1,6 @@
 const express = require("express");
 const gameMethods = require("../services/gameMethods");
+const usersMethods = require("../services/usersMethods");
 const cors = require("cors");
 const app = express();
 
@@ -46,6 +47,7 @@ const router7 = express.Router({ mergeParams: true });
 const router8 = express.Router({ mergeParams: true });
 const router9 = express.Router({ mergeParams: true });
 const router10 = express.Router({ mergeParams: true });
+const router11 = express.Router({ mergeParams: true });
 
 /* GET welcome message*/
 router0.get("/", async function (req, res, next) {
@@ -198,11 +200,9 @@ router9.get("/api/games/:gameid", async function (req, res, next) {
     const data = await gameMethods.getGameData(gameid);
     res.json(data.rows.rows[0]);
   } catch (error) {
-    return res
-      .status(500)
-      .json({
-        error: `get game data by game id query failed Internal Server Error`,
-      });
+    return res.status(500).json({
+      error: `get game data by game id query failed Internal Server Error`,
+    });
   }
 
   // res.end();
@@ -213,22 +213,35 @@ router10.patch(
   "/api/category-clues/newscore/:gameid",
   async function (req, res, next) {
     try {
-      console.log("reset game score " + res)
+      console.log("reset game score " + res);
       let gameid = req.params.gameid;
       const data = await gameMethods.resetGameScore(gameid);
-      console.log("reset game score " + data)
+      console.log("reset game score " + data);
       res.json(data.rows.rows);
     } catch (error) {
       return res.status(500).json({
-
         error: `UPDATE game score to 0 query failed`,
       });
     }
     // res.end();
   }
 );
+/* GET all users */
+router11.get("/api/users", async function (req, res, next) {
+  try {
+    // let userid = req.params.userid;
+    const data = await usersMethods.getUsers();
 
-// module.exports =   router;
+    res.json(data.rows.rows);
+  } catch (error) {
+    return res.status(500).json({
+      error: `get users info query failed`,
+    });
+  }
+  // res.end();
+});
+
+
 module.exports = {
   router0,
   router1,
@@ -241,4 +254,5 @@ module.exports = {
   router8,
   router9,
   router10,
+  router11,
 };
