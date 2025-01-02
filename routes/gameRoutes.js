@@ -1,6 +1,5 @@
 const express = require("express");
 const gameMethods = require("../services/gameMethods");
-const usersMethods = require("../services/usersMethods");
 const cors = require("cors");
 const app = express();
 
@@ -35,19 +34,19 @@ app.use(function (req, res, next) {
 });
 
 /*have to have express.Router() for each http call*/
-/*mergeParams makes parent params accessible to child route*/
-const router0 = express.Router({ mergeParams: true });
-const router1 = express.Router({ mergeParams: true });
-const router2 = express.Router({ mergeParams: true });
-const router3 = express.Router({ mergeParams: true });
-const router4 = express.Router({ mergeParams: true });
-const router5 = express.Router({ mergeParams: true });
-const router6 = express.Router({ mergeParams: true });
-const router7 = express.Router({ mergeParams: true });
-const router8 = express.Router({ mergeParams: true });
-const router9 = express.Router({ mergeParams: true });
-const router10 = express.Router({ mergeParams: true });
-const router11 = express.Router({ mergeParams: true });
+/*mergeParams: true makes parent params accessible to child route*/
+const router0 = express.Router();
+const router1 = express.Router();
+const router2 = express.Router();
+const router3 = express.Router();
+const router4 = express.Router();
+const router5 = express.Router();
+const router6 = express.Router();
+const router7 = express.Router();
+const router8 = express.Router();
+const router9 = express.Router();
+const router10 = express.Router();
+
 
 /* GET welcome message*/
 router0.get("/", async function (req, res, next) {
@@ -165,6 +164,7 @@ router6.patch("/api/games/newgame/:gameid", async function (req, res, next) {
   // res.end();
 });
 
+
 /* UPDATE game score*/
 router7.patch("/api/games/:gameid/:score", async function (req, res, next) {
   try {
@@ -192,6 +192,7 @@ router8.get("/api/games", async function (req, res, next) {
 
   // res.end();
 });
+
 
 /* GET game data by game id */
 router9.get("/api/games/:gameid", async function (req, res, next) {
@@ -226,20 +227,6 @@ router10.patch(
     // res.end();
   }
 );
-/* GET all users */
-router11.get("/api/users", async function (req, res, next) {
-  try {
-    // let userid = req.params.userid;
-    const data = await usersMethods.getUsers();
-
-    res.json(data.rows.rows);
-  } catch (error) {
-    return res.status(500).json({
-      error: `get users info query failed`,
-    });
-  }
-  // res.end();
-});
 
 
 module.exports = {
@@ -254,5 +241,4 @@ module.exports = {
   router8,
   router9,
   router10,
-  router11,
 };

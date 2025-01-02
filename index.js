@@ -14,14 +14,6 @@ app.use(
 
 const cors = require("cors");
 
-// app.options("*", cors());
-
-// app.use(
-//   cors({
-//     origin: ["*"],
-//     credentials: true,
-//   })
-// );
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -31,9 +23,10 @@ app.use((req, res, next) => {
   next();
 });
 
-
 const gameMethodsRouter = require("./routes/gameRoutes");
+const usersMethodsRouter = require("./routes/usersRoutes");
 
+//games routes
 app.use(gameMethodsRouter.router0);
 app.use(gameMethodsRouter.router1);
 app.use(gameMethodsRouter.router2);
@@ -45,7 +38,10 @@ app.use(gameMethodsRouter.router7);
 app.use(gameMethodsRouter.router8);
 app.use(gameMethodsRouter.router9);
 app.use(gameMethodsRouter.router10);
-app.use(gameMethodsRouter.router11);
+//users route
+app.use(usersMethodsRouter.router01);
+app.use(usersMethodsRouter.router02);
+app.use(usersMethodsRouter.router03);
 
 app.listen(PORT, () => {
   console.log(`Example app listening at ${PORT}`);
