@@ -36,7 +36,7 @@ app.use(function (req, res, next) {
 const router01 = express.Router();
 const router02 = express.Router();
 const router03 = express.Router();
-
+const router04 = express.Router();
 //Routes that use userMethods
 
 /* GET all users */
@@ -65,12 +65,27 @@ router01.get("/api/users", async function (req, res, next) {
         .status(500)
         .json({ error: `get games for user query failed Internal Server Error` });
     }
+    // res.end();
+  });
 
+  /* GET one game info for a user */
+  router03.get("/api/gameslist/:userid/:gameid", async function (req, res, next) {
+    try {
+      let userid = req.params.userid;
+      let gameid = req.params.gameid;
+      const data = await usersMethods.getUserGameInfo(gameid, userid);
+      console.log("route get one game info for user " + JSON.stringify(data.rows.rows));
+      res.json(data.rows.rows);
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ error: `get one game for user query failed Internal Server Error` });
+    }
     // res.end();
   });
 
 
-router03.patch("/api/users/:userid/:gameid/:score", async function (req, res, next) {
+router04.patch("/api/users/:userid/:gameid/:score", async function (req, res, next) {
   try {
     let userid = req.params.userid;
     let gameid = req.params.gameid;
@@ -87,5 +102,6 @@ router03.patch("/api/users/:userid/:gameid/:score", async function (req, res, ne
 module.exports = {
     router01,
     router02,
-    router03
+    router03,
+    router04
 }
