@@ -73,7 +73,7 @@ router01.get("/api/users", async function (req, res, next) {
     try {
       let userid = req.params.userid;
       let gameid = req.params.gameid;
-      const data = await usersMethods.getUserGameInfo(gameid, userid);
+      const data = await usersMethods.getUserGameInfo(userid,gameid);
       console.log("route get one game info for user " + JSON.stringify(data.rows.rows));
       res.json(data.rows.rows);
     } catch (error) {
