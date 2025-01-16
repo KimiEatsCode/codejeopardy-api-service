@@ -54,24 +54,7 @@ async function updateClue(id, answeredClue) {
   };
 }
 
-// async function resetClues(gameid) {
-//   const rows = await client.query(`UPDATE clues SET answered = 0 WHERE game_id = ${gameid}
-async function resetClues(gameid) {
-  const rows = await client.query(`UPDATE clues SET answered = 0
-      `);
-  return {
-    rows,
-  };
-}
 
-async function resetGameScore(gameid) {
-  const rows =
-    await client.query(`UPDATE games SET game_score = 0 WHERE game_id = ${gameid}
-      `);
-  return {
-    rows,
-  };
-}
 
 async function setScore(gameid, score) {
   const rows = await client.query(
@@ -88,9 +71,7 @@ module.exports = {
   getCategoryClues,
   getClue,
   updateClue,
-  resetClues,
   setScore,
   getAllClues,
   getGameData,
-  resetGameScore,
 };

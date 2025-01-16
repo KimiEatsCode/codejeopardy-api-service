@@ -111,7 +111,7 @@ router3.get("/api/allclues", async function (req, res, next) {
 });
 
 /* GET specific category clue based on clue id */
-// router4.get("/api/category-clue/:clue_id", async function (req, res, next) {
+
 router4.get(
   "/api/category-clues/allclues/:clueid",
   async function (req, res, next) {
@@ -209,25 +209,6 @@ router9.get("/api/games/:gameid", async function (req, res, next) {
   // res.end();
 });
 
-/* UPDATE answered to reset game to new score */
-router10.patch(
-  "/api/category-clues/newscore/:gameid",
-  async function (req, res, next) {
-    try {
-      console.log("reset game score " + res);
-      let gameid = req.params.gameid;
-      const data = await gameMethods.resetGameScore(gameid);
-      console.log("reset game score " + data);
-      res.json(data.rows.rows);
-    } catch (error) {
-      return res.status(500).json({
-        error: `UPDATE game score to 0 query failed`,
-      });
-    }
-    // res.end();
-  }
-);
-
 
 module.exports = {
   router0,
@@ -240,5 +221,4 @@ module.exports = {
   router7,
   router8,
   router9,
-  router10,
 };
