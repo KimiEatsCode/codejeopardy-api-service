@@ -1,4 +1,7 @@
 const express = require("express");
+const gameMethodsRouter = require("./routes/gameRoutes");
+const usersMethodsRouter = require("./routes/usersRoutes");
+
 let app = express();
 //use path for dev
 // require("dotenv").config({ path: "config.env" });
@@ -22,9 +25,6 @@ app.use((req, res, next) => {
   app.use(cors());
   next();
 });
-
-const gameMethodsRouter = require("./routes/gameRoutes");
-const usersMethodsRouter = require("./routes/usersRoutes").default;
 
 //games routes
 app.use(gameMethodsRouter.router0);
