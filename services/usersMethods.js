@@ -1,4 +1,4 @@
-const { reset } = require("nodemon");
+
 const client = require("../heroku-config-postgres");
 
 async function getUsers() {

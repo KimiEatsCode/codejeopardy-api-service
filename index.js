@@ -23,8 +23,8 @@ app.use((req, res, next) => {
   next();
 });
 
-const gameMethodsRouter = require("./routes/gameRoutes");
-const usersMethodsRouter = require("./routes/usersRoutes");
+const gameMethodsRouter = require("./routes/gameRoutes").default;
+const usersMethodsRouter = require("./routes/usersRoutes").default;
 
 //games routes
 app.use(gameMethodsRouter.router0);
