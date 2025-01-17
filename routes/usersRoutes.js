@@ -40,8 +40,7 @@ const router04 = express.Router();
 const router05 = express.Router();
 const router06 = express.Router();
 const router07 = express.Router();
-const router08 = express.Router();
-const router09 = express.Router();
+
 //Routes that use userMethods
 
 /* GET all users */
