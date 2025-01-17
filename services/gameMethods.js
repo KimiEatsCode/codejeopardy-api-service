@@ -7,8 +7,15 @@ async function getGames() {
   };
 }
 
-async function getGameCategories() {
-  const rows = await client.query(`SELECT * FROM categories`);
+async function getGameData(gameid) {
+  const rows = await client.query(`SELECT * FROM games WHERE game_id = ${gameid}`);
+  return {
+    rows,
+  };
+}
+
+async function getGameCategories(gameid) {
+  const rows = await client.query(`SELECT * FROM categories WHERE game_id = ${gameid}`);
   return {
     rows,
   };
@@ -47,8 +54,18 @@ async function updateClue(id, answeredClue) {
   };
 }
 
-async function resetClues() {
-  const rows = await client.query(`UPDATE clues SET answered = NULL
+// async function resetClues(gameid) {
+//   const rows = await client.query(`UPDATE clues SET answered = 0 WHERE game_id = ${gameid}
+async function resetClues(gameid) {
+  const rows = await client.query(`UPDATE clues SET answered = 0 
+      `);
+  return {
+    rows,
+  };
+}
+
+async function resetGameScore(gameid) {
+  const rows = await client.query(`UPDATE games SET game_score = 0 WHERE game_id = ${gameid}
       `);
   return {
     rows,
@@ -73,4 +90,6 @@ module.exports = {
   resetClues,
   setScore,
   getAllClues,
+  getGameData,
+  resetGameScore
 };
