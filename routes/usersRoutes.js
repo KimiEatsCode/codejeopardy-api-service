@@ -7,7 +7,7 @@ import {
   updateUserClue,
   getUserClue,
   resetUserClues,
-} from "../services/usersMethods";
+} from "..services/usersMethods";
 import cors from "cors";
 const app = express();
 
@@ -89,11 +89,9 @@ router03.get("/api/gameslist/:userid/:gameid", async function (req, res, next) {
     // console.log("route get one game info for user " + JSON.stringify(data.rows.rows));
     res.json(data.rows.rows);
   } catch (error) {
-    return res
-      .status(500)
-      .json({
-        error: `get one game for user query failed Internal Server Error`,
-      });
+    return res.status(500).json({
+      error: `get one game for user query failed Internal Server Error`,
+    });
   }
   // res.end();
 });
