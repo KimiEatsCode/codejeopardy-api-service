@@ -1,22 +1,12 @@
-import express, { Router, urlencoded } from "express";
-import {
-  getGameCategories,
-  getCategoryClues,
-  getAllClues,
-  getClue,
-  updateClue,
-  resetClues,
-  setScore,
-  getGames,
-  getGameData,
-} from "../services/gameMethods";
-import cors from "cors";
+const express = require("express");
+const gameMethods = require("../services/gameMethods");
+const cors = require("cors");
 const app = express();
 
-const router = Router();
+const router = express.Router();
 // Apply CORS to all routes in the router
 app.use(
-  urlencoded({
+  express.urlencoded({
     extended: true,
   })
 );
@@ -44,18 +34,18 @@ app.use(function (req, res, next) {
 });
 
 /*have to have express.Router() for each http call*/
-/*mergeParams: true makes parent params accessible to child route*/
-const router0 = Router();
-const router1 = Router();
-const router2 = Router();
-const router3 = Router();
-const router4 = Router();
-const router5 = Router();
-const router6 = Router();
-const router7 = Router();
-const router8 = Router();
-const router9 = Router();
-const router10 = Router();
+/*mergeParams makes parent params accessible to child route*/
+const router0 = express.Router({ mergeParams: true });
+const router1 = express.Router({ mergeParams: true });
+const router2 = express.Router({ mergeParams: true });
+const router3 = express.Router({ mergeParams: true });
+const router4 = express.Router({ mergeParams: true });
+const router5 = express.Router({ mergeParams: true });
+const router6 = express.Router({ mergeParams: true });
+const router7 = express.Router({ mergeParams: true });
+const router8 = express.Router({ mergeParams: true });
+const router9 = express.Router({ mergeParams: true });
+const router10 = express.Router({ mergeParams: true });
 
 /* GET welcome message*/
 router0.get("/", async function (req, res, next) {
@@ -83,7 +73,7 @@ router0.get("/", async function (req, res, next) {
 router1.get("/api/games/:gameid/categories", async function (req, res, next) {
   try {
     let gameid = req.params.gameid;
-    const data = await getGameCategories(gameid);
+    const data = await gameMethods.getGameCategories(gameid);
     // console.log("game categories router " + JSON.stringify(data.rows.rows));
     res.json(data.rows.rows);
   } catch (error) {
@@ -99,7 +89,7 @@ router2.get("/api/category-clues/:catid", async function (req, res, next) {
   try {
     let catid = req.params.catid;
 
-    const data = await getCategoryClues(catid);
+    const data = await gameMethods.getCategoryClues(catid);
     // console.log("category clues data " + data.rows.rows);
     res.json(data.rows.rows);
   } catch (error) {
@@ -111,7 +101,7 @@ router2.get("/api/category-clues/:catid", async function (req, res, next) {
 //GET all clues
 router3.get("/api/allclues", async function (req, res, next) {
   try {
-    const data = await getAllClues();
+    const data = await gameMethods.getAllClues();
     res.json(data.rows.rows);
   } catch (error) {
     return res.status(500).json({ error: "get all clues query failed" });
@@ -120,13 +110,13 @@ router3.get("/api/allclues", async function (req, res, next) {
 });
 
 /* GET specific category clue based on clue id */
-
+// router4.get("/api/category-clue/:clue_id", async function (req, res, next) {
 router4.get(
   "/api/category-clues/allclues/:clueid",
   async function (req, res, next) {
     try {
       let clueid = req.params.clueid;
-      const data = await getClue(clueid);
+      const data = await gameMethods.getClue(clueid);
       // console.log("get clue by clue id " + JSON.stringify(data.rows.rows));
       res.json(data.rows.rows);
     } catch (error) {
@@ -147,7 +137,7 @@ router5.patch(
     try {
       let clueid = req.params.clueid;
       let answeredCorrect = req.params.answeredCorrect;
-      const data = await updateClue(clueid, answeredCorrect);
+      const data = await gameMethods.updateClue(clueid, answeredCorrect);
       console.log(JSON.stringify(data.rows.rows));
       res.json(data.rows.rows);
     } catch (error) {
@@ -163,7 +153,7 @@ router5.patch(
 router6.patch("/api/games/newgame/:gameid", async function (req, res, next) {
   try {
     let gameid = req.params.gameid;
-    const data = await resetClues(gameid);
+    const data = await gameMethods.resetClues(gameid);
     res.json(data.rows.rows);
   } catch (error) {
     return res.status(500).json({
@@ -178,7 +168,7 @@ router7.patch("/api/games/:gameid/:score", async function (req, res, next) {
   try {
     let gameid = req.params.gameid;
     let score = req.params.score;
-    const data = await setScore(gameid, score);
+    const data = await gameMethods.setScore(gameid, score);
     console.log("update game from api with score " + req.params.score);
     res.json(data.rows.rows);
   } catch (error) {
@@ -190,7 +180,7 @@ router7.patch("/api/games/:gameid/:score", async function (req, res, next) {
 /* GET all games */
 router8.get("/api/games", async function (req, res, next) {
   try {
-    const data = await getGames();
+    const data = await gameMethods.getGames();
     res.json(data.rows.rows);
   } catch (error) {
     return res
@@ -205,18 +195,41 @@ router8.get("/api/games", async function (req, res, next) {
 router9.get("/api/games/:gameid", async function (req, res, next) {
   try {
     let gameid = req.params.gameid;
-    const data = await getGameData(gameid);
+    const data = await gameMethods.getGameData(gameid);
     res.json(data.rows.rows[0]);
   } catch (error) {
-    return res.status(500).json({
-      error: `get game data by game id query failed Internal Server Error`,
-    });
+    return res
+      .status(500)
+      .json({
+        error: `get game data by game id query failed Internal Server Error`,
+      });
   }
 
   // res.end();
 });
 
-export default {
+/* UPDATE answered to reset game to new score */
+router10.patch(
+  "/api/category-clues/newscore/:gameid",
+  async function (req, res, next) {
+    try {
+      console.log("reset game score " + res)
+      let gameid = req.params.gameid;
+      const data = await gameMethods.resetGameScore(gameid);
+      console.log("reset game score " + data)
+      res.json(data.rows.rows);
+    } catch (error) {
+      return res.status(500).json({
+
+        error: `UPDATE game score to 0 query failed`,
+      });
+    }
+    // res.end();
+  }
+);
+
+// module.exports =   router;
+module.exports = {
   router0,
   router1,
   router2,
@@ -227,4 +240,5 @@ export default {
   router7,
   router8,
   router9,
+  router10,
 };
