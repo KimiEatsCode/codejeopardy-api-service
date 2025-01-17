@@ -1,8 +1,8 @@
 const express = require("express");
 let app = express();
 //use path for dev
-require("dotenv").config({ path: "config.env" });
-// require("dotenv").config();
+// require("dotenv").config({ path: "config.env" });
+require("dotenv").config();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -13,7 +13,6 @@ app.use(
 );
 
 const cors = require("cors");
-
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -46,7 +45,6 @@ app.use(usersMethodsRouter.router04);
 app.use(usersMethodsRouter.router05);
 app.use(usersMethodsRouter.router06);
 app.use(usersMethodsRouter.router07);
-
 
 app.listen(PORT, () => {
   console.log(`Example app listening at ${PORT}`);
