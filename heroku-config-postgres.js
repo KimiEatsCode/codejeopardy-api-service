@@ -1,6 +1,10 @@
 //use for development local NOT production
 // require("dotenv").config({ path: "config.env" });
+<<<<<<< HEAD
  require("dotenv").config();
+=======
+require("dotenv").config();
+>>>>>>> branch2-multiple-users
 const { Client } = require("pg");
 
 const client = new Client({

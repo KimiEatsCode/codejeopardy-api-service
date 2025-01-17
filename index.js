@@ -14,6 +14,7 @@ app.use(
 
 const cors = require("cors");
 
+<<<<<<< HEAD
 app.options("*", cors());
 
 app.use(
@@ -23,6 +24,8 @@ app.use(
   })
 );
 
+=======
+>>>>>>> branch2-multiple-users
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET,PUT,POST, PATCH,DELETE");
@@ -32,7 +35,9 @@ app.use((req, res, next) => {
 });
 
 const gameMethodsRouter = require("./routes/gameRoutes");
+const usersMethodsRouter = require("./routes/usersRoutes");
 
+//games routes
 app.use(gameMethodsRouter.router0);
 app.use(gameMethodsRouter.router1);
 app.use(gameMethodsRouter.router2);
@@ -43,7 +48,15 @@ app.use(gameMethodsRouter.router6);
 app.use(gameMethodsRouter.router7);
 app.use(gameMethodsRouter.router8);
 app.use(gameMethodsRouter.router9);
-app.use(gameMethodsRouter.router10);
+
+//users route
+app.use(usersMethodsRouter.router01);
+app.use(usersMethodsRouter.router02);
+app.use(usersMethodsRouter.router03);
+app.use(usersMethodsRouter.router04);
+app.use(usersMethodsRouter.router05);
+app.use(usersMethodsRouter.router06);
+app.use(usersMethodsRouter.router07);
 
 app.listen(PORT, () => {
   console.log(`Example app listening at ${PORT}`);

@@ -34,18 +34,19 @@ app.use(function (req, res, next) {
 });
 
 /*have to have express.Router() for each http call*/
-/*mergeParams makes parent params accessible to child route*/
-const router0 = express.Router({ mergeParams: true });
-const router1 = express.Router({ mergeParams: true });
-const router2 = express.Router({ mergeParams: true });
-const router3 = express.Router({ mergeParams: true });
-const router4 = express.Router({ mergeParams: true });
-const router5 = express.Router({ mergeParams: true });
-const router6 = express.Router({ mergeParams: true });
-const router7 = express.Router({ mergeParams: true });
-const router8 = express.Router({ mergeParams: true });
-const router9 = express.Router({ mergeParams: true });
-const router10 = express.Router({ mergeParams: true });
+/*mergeParams: true makes parent params accessible to child route*/
+const router0 = express.Router();
+const router1 = express.Router();
+const router2 = express.Router();
+const router3 = express.Router();
+const router4 = express.Router();
+const router5 = express.Router();
+const router6 = express.Router();
+const router7 = express.Router();
+const router8 = express.Router();
+const router9 = express.Router();
+const router10 = express.Router();
+
 
 /* GET welcome message*/
 router0.get("/", async function (req, res, next) {
@@ -110,7 +111,7 @@ router3.get("/api/allclues", async function (req, res, next) {
 });
 
 /* GET specific category clue based on clue id */
-// router4.get("/api/category-clue/:clue_id", async function (req, res, next) {
+
 router4.get(
   "/api/category-clues/allclues/:clueid",
   async function (req, res, next) {
@@ -163,6 +164,7 @@ router6.patch("/api/games/newgame/:gameid", async function (req, res, next) {
   // res.end();
 });
 
+
 /* UPDATE game score*/
 router7.patch("/api/games/:gameid/:score", async function (req, res, next) {
   try {
@@ -191,6 +193,7 @@ router8.get("/api/games", async function (req, res, next) {
   // res.end();
 });
 
+
 /* GET game data by game id */
 router9.get("/api/games/:gameid", async function (req, res, next) {
   try {
@@ -198,37 +201,15 @@ router9.get("/api/games/:gameid", async function (req, res, next) {
     const data = await gameMethods.getGameData(gameid);
     res.json(data.rows.rows[0]);
   } catch (error) {
-    return res
-      .status(500)
-      .json({
-        error: `get game data by game id query failed Internal Server Error`,
-      });
+    return res.status(500).json({
+      error: `get game data by game id query failed Internal Server Error`,
+    });
   }
 
   // res.end();
 });
 
-/* UPDATE answered to reset game to new score */
-router10.patch(
-  "/api/category-clues/newscore/:gameid",
-  async function (req, res, next) {
-    try {
-      console.log("reset game score " + res)
-      let gameid = req.params.gameid;
-      const data = await gameMethods.resetGameScore(gameid);
-      console.log("reset game score " + data)
-      res.json(data.rows.rows);
-    } catch (error) {
-      return res.status(500).json({
 
-        error: `UPDATE game score to 0 query failed`,
-      });
-    }
-    // res.end();
-  }
-);
-
-// module.exports =   router;
 module.exports = {
   router0,
   router1,
@@ -240,5 +221,4 @@ module.exports = {
   router7,
   router8,
   router9,
-  router10,
 };
