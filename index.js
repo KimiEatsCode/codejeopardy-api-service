@@ -1,8 +1,8 @@
 const express = require("express");
 let app = express();
 //use path for dev
-require("dotenv").config({ path: "config.env" });
-// require("dotenv").config();
+// require("dotenv").config({ path: "config.env" });
+require("dotenv").config();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -14,14 +14,14 @@ app.use(
 
 const cors = require("cors");
 
-// app.options("*", cors());
+app.options("*", cors());
 
-// app.use(
-//   cors({
-//     origin: ["*"],
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: ["*"],
+    credentials: true,
+  })
+);
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -30,7 +30,6 @@ app.use((req, res, next) => {
   app.use(cors());
   next();
 });
-
 
 const gameMethodsRouter = require("./routes/gameRoutes");
 
