@@ -7,7 +7,7 @@ import {
   updateUserClue,
   getUserClue,
   resetUserClues,
-} from "..services/usersMethods";
+} from "../services/usersMethods";
 import cors from "cors";
 const app = express();
 

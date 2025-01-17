@@ -9,7 +9,7 @@ import {
   setScore,
   getGames,
   getGameData,
-} from "..services/gameMethods";
+} from "../services/gameMethods";
 import cors from "cors";
 const app = express();
 
