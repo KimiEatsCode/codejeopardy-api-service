@@ -1,8 +1,9 @@
 const express = require("express");
 let app = express();
 //use path for dev
-// require("dotenv").config({ path: "config.env" });
-require("dotenv").config();
+require("dotenv").config({ path: "config.env" });
+//use for production
+// require("dotenv").config();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -14,18 +15,6 @@ app.use(
 
 const cors = require("cors");
 
-<<<<<<< HEAD
-app.options("*", cors());
-
-app.use(
-  cors({
-    origin: ["*"],
-    credentials: true,
-  })
-);
-
-=======
->>>>>>> branch2-multiple-users
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET,PUT,POST, PATCH,DELETE");

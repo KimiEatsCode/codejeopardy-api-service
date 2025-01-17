@@ -1,14 +1,14 @@
 //use for development local NOT production
 // require("dotenv").config({ path: "config.env" });
-<<<<<<< HEAD
+
+//use for production
  require("dotenv").config();
-=======
-require("dotenv").config();
->>>>>>> branch2-multiple-users
+
 const { Client } = require("pg");
 
 const client = new Client({
   connectionString: process.env.connectionString,
+  //SSL uncomment for production heroku
   ssl: {
     rejectUnauthorized: false,
   },
