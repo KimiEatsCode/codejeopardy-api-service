@@ -38,7 +38,7 @@ async function setUserScore(userid, gameid, score) {
 async function updateUserClue(userid, clueid, answeredCorrect, catid, gameid) {
 
  const rows = await client.query(
-  `INSERT INTO users_clues (userid_clues, clueid, answeredcorrect,catid, gameid) VALUES (${userid}, ${clueid},${answeredCorrect},${catid}, ${gameid}) ON CONFLICT ON CONSTRAINT clueid_constraint DO UPDATE SET answeredcorrect = ${answeredCorrect} RETURNING *`
+  `INSERT INTO users_clues (userid_clues, clueid, answeredcorrect,catid, gameid) VALUES (${userid}, ${clueid},${answeredCorrect},${catid}, ${gameid}) ON CONFLICT ON CONSTRAINT sqlpropk_clueid DO UPDATE SET answeredcorrect = ${answeredCorrect} RETURNING *`
  );
 
   return {
