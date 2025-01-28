@@ -1,5 +1,4 @@
-
-const client = require("../heroku-config-postgres");
+const client = require("../db-config-postgres");
 
 async function getUsers() {
   const rows = await client.query(`SELECT * FROM users ORDER BY userid ASC`);
@@ -36,10 +35,9 @@ async function setUserScore(userid, gameid, score) {
 }
 
 async function updateUserClue(userid, clueid, answeredCorrect, catid, gameid) {
-
- const rows = await client.query(
-  `INSERT INTO users_clues (userid_clues, clueid, answeredcorrect,catid, gameid) VALUES (${userid}, ${clueid},${answeredCorrect},${catid}, ${gameid}) ON CONFLICT ON CONSTRAINT sqlpropk_clueid DO UPDATE SET answeredcorrect = ${answeredCorrect} RETURNING *`
- );
+  const rows = await client.query(
+    `INSERT INTO users_clues (userid_clues, clueid, answeredcorrect,catid, gameid) VALUES (${userid}, ${clueid},${answeredCorrect},${catid}, ${gameid}) ON CONFLICT ON CONSTRAINT sqlpropk_clueid DO UPDATE SET answeredcorrect = ${answeredCorrect} RETURNING *`
+  );
 
   return {
     rows,
@@ -67,10 +65,9 @@ async function updateUserClue(userid, clueid, answeredCorrect, catid, gameid) {
 //   const rows = await client.query(`SELECT * FROM users_clues WHERE clueid = ${clueid} AND userid = ${userid} ORDER BY value ASC`);
 // }
 
-
 //get clues for categories in game with user clues info for answeredCorrect
 
-async function getUserClue(userid,catid) {
+async function getUserClue(userid, catid) {
   // const rows = await client.query(`
   //   SELECT * FROM clues LEFT JOIN users_clues ON clue_id = clueid
   //   WHERE category_id = ${catid}
@@ -88,27 +85,28 @@ async function getUserClue(userid,catid) {
   WHERE
       category_id = ${catid}
   ORDER BY
-      value ASC`)
+      value ASC`
+  );
   return {
     rows,
   };
 }
 
 async function resetUserClues(userid, gameid) {
-  const rows = await client.query(`UPDATE users_clues SET answeredcorrect = 0 WHERE gameid = ${gameid} AND userid_clues = ${userid} RETURNING *
+  const rows =
+    await client.query(`UPDATE users_clues SET answeredcorrect = 0 WHERE gameid = ${gameid} AND userid_clues = ${userid} RETURNING *
       `);
   return {
     rows,
   };
 }
 
-
 module.exports = {
-    getUsers,
-    getUserGames,
-    getUserGameInfo,
-    setUserScore,
-    updateUserClue,
-    getUserClue,
-    resetUserClues
-}
+  getUsers,
+  getUserGames,
+  getUserGameInfo,
+  setUserScore,
+  updateUserClue,
+  getUserClue,
+  resetUserClues,
+};
