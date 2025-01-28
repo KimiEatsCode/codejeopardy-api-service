@@ -1,8 +1,8 @@
 //use for development local NOT production
-require("dotenv").config({ path: "config.env" });
+// require("dotenv").config({ path: "config.env" });
 
 //use for production
-//  require("dotenv").config();
+ require("dotenv").config();
 
 const { Client } = require("pg");
 
