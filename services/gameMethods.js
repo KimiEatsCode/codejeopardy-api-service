@@ -1,4 +1,6 @@
-const client = require("../heroku-config-postgres");
+// const client = require("../db-config-postgres").default;
+
+import { client } from '../db-config-postgres.js';
 
 async function getGames() {
   const rows = await client.query("SELECT * FROM games");
@@ -81,7 +83,7 @@ async function setScore(gameid, score) {
   };
 }
 
-module.exports = {
+export {
   getGames,
   getGameCategories,
   getCategoryClues,

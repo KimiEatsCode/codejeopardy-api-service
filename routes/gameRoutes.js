@@ -1,6 +1,9 @@
-const express = require("express");
-const gameMethods = require("../services/gameMethods");
-const cors = require("cors");
+// const express = require("express");
+import express from 'express';
+// const gameMethods = require("../services/gameMethods");
+import * as gameMethods from '../services/gameMethods.js';
+// const cors = require("cors");
+import cors from 'cors';
 const app = express();
 
 const router = express.Router();
@@ -228,8 +231,7 @@ router10.patch(
   }
 );
 
-// module.exports =   router;
-module.exports = {
+const gameMethodsRouter = {
   router0,
   router1,
   router2,
@@ -242,3 +244,6 @@ module.exports = {
   router9,
   router10,
 };
+
+// module.exports =   router;
+export  {gameMethodsRouter};
