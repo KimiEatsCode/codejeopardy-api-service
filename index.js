@@ -38,8 +38,8 @@ app.use((req, res, next) => {
 
 
 // const gameMethodsRouter = require("./routes/gameRoutes");
-
 import { gameMethodsRouter } from './routes/gameRoutes.js';
+import { usersMethodsRouter  } from './routes/usersRoutes.js';
 
 app.use(gameMethodsRouter.router0);
 app.use(gameMethodsRouter.router1);
@@ -52,6 +52,15 @@ app.use(gameMethodsRouter.router7);
 app.use(gameMethodsRouter.router8);
 app.use(gameMethodsRouter.router9);
 app.use(gameMethodsRouter.router10);
+
+app.use(usersMethodsRouter.router01);
+app.use(usersMethodsRouter.router02);
+app.use(usersMethodsRouter.router03);
+app.use(usersMethodsRouter.router04);
+app.use(usersMethodsRouter.router05);
+app.use(usersMethodsRouter.router06);
+app.use(usersMethodsRouter.router07);
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening at ${PORT}`);

@@ -1,6 +1,9 @@
-const express = require("express");
-const usersMethods = require("../services/usersMethods");
-const cors = require("cors");
+// const express = require("express");
+import express from 'express';
+// const gameMethods = require("../services/gameMethods");
+import * as usersMethods from '../services/usersMethods.js';
+// const cors = require("cors");
+import cors from 'cors';
 const app = express();
 
 const router = express.Router();
@@ -167,12 +170,14 @@ router07.patch("/api/category-clues/user/:userid/:gameid",
 );
 
 
-module.exports = {
-    router01,
-    router02,
-    router03,
-    router04,
-    router05,
-    router06,
-    router07
+const usersMethodsRouter = {
+  router01,
+  router02,
+  router03,
+  router04,
+  router05,
+  router06,
+  router07
 }
+
+export { usersMethodsRouter };

@@ -101,7 +101,7 @@ async function resetUserClues(userid, gameid) {
   };
 }
 
-module.exports = {
+export {
   getUsers,
   getUserGames,
   getUserGameInfo,
