@@ -1,5 +1,5 @@
-const client = require("../db-config-postgres");
-
+// const client = require("../db-config-postgres");
+import { client } from '../db-config-postgres.js';
 async function getUsers() {
   const rows = await client.query(`SELECT * FROM users ORDER BY userid ASC`);
   return {
