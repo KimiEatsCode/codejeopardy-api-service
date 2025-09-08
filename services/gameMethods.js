@@ -1,4 +1,6 @@
-const client = require("../db-config-postgres");
+// const client = require("../db-config-postgres").default;
+
+import { client } from '../db-config-postgres.js';
 
 async function getGames() {
   const rows = await client.query("SELECT * FROM games");
@@ -8,18 +10,14 @@ async function getGames() {
 }
 
 async function getGameData(gameid) {
-  const rows = await client.query(
-    `SELECT * FROM games WHERE game_id = ${gameid}`
-  );
+  const rows = await client.query(`SELECT * FROM games WHERE game_id = ${gameid}`);
   return {
     rows,
   };
 }
 
 async function getGameCategories(gameid) {
-  const rows = await client.query(
-    `SELECT * FROM categories WHERE game_id = ${gameid}`
-  );
+  const rows = await client.query(`SELECT * FROM categories WHERE game_id = ${gameid}`);
   return {
     rows,
   };
@@ -49,19 +47,28 @@ async function getClue(id) {
   };
 }
 
-// async function updateClue(id, answeredClue) {
-//   const rows = await client.query(
-//     `UPDATE clues SET answered = ${answeredClue} WHERE clue_id= ${id}`
-//   );
-//   return {
-//     rows,
-//   };
-// }
-
-async function updateClue(id) {
+async function updateClue(id, answeredClue) {
   const rows = await client.query(
-    `UPDATE clues SET answered = NULL WHERE clue_id= ${id}`
+    `UPDATE clues SET answered = ${answeredClue} WHERE clue_id= ${id}`
   );
+  return {
+    rows,
+  };
+}
+
+// async function resetClues(gameid) {
+//   const rows = await client.query(`UPDATE clues SET answered = 0 WHERE game_id = ${gameid}
+async function resetClues(gameid) {
+  const rows = await client.query(`UPDATE clues SET answered = 0 
+      `);
+  return {
+    rows,
+  };
+}
+
+async function resetGameScore(gameid) {
+  const rows = await client.query(`UPDATE games SET game_score = 0 WHERE game_id = ${gameid}
+      `);
   return {
     rows,
   };
@@ -76,13 +83,15 @@ async function setScore(gameid, score) {
   };
 }
 
-module.exports = {
+export {
   getGames,
   getGameCategories,
   getCategoryClues,
   getClue,
   updateClue,
+  resetClues,
   setScore,
   getAllClues,
   getGameData,
+  resetGameScore
 };

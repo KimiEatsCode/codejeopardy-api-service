@@ -1,19 +1,18 @@
-//use for development local NOT production
 // require("dotenv").config({ path: "config.env" });
+import { config } from 'dotenv'; config();
 
-//use for production
- require("dotenv").config();
+  import { Client } from 'pg'
 
-const { Client } = require("pg");
-
-const client = new Client({
+//Use connection string for production
+const client = new Client ({
   connectionString: process.env.connectionString,
-  //SSL uncomment for production heroku
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  // user: process.env.LOCALUSER,
+  // host: process.env.LOCALHOST,
+  // database: process.env.LOCALDATABASE,
+  // password: process.env.LOCALPASSWORD,
+  // port: process.env.LOCALPORT,
 });
 
 client.connect();
 
-module.exports = client;
+export { client };
