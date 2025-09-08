@@ -246,4 +246,4 @@ const gameMethodsRouter = {
 };
 
 // module.exports =   router;
-export  {gameMethodsRouter};
+export  { gameMethodsRouter };
