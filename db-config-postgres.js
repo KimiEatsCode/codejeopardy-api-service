@@ -4,6 +4,7 @@ import { config } from 'dotenv'; config();
   import { Client } from 'pg'
 
 //Use connection string for production
+//comment out LOCAL variables for production
 const client = new Client ({
   connectionString: process.env.connectionString,
   // user: process.env.LOCALUSER,
